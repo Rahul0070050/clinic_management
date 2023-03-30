@@ -72,7 +72,7 @@ function Login() {
             <button onClick={handleSubmit}>submit</button>
             <div className="links">
               <a href="">forgot password</a>,&nbsp;&nbsp;
-              {/* <Link to={"/signup"}>i don't have an account</Link> */}
+              <Link to={"/signup"}>i don't have an account</Link>
             </div>
           </form>
         </div>

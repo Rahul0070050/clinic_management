@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 import logo from '../../../assets/images/user-login-logo.png';
 import openEye from '../../../assets/images/open-eye.png';
@@ -9,7 +10,6 @@ import passwordLogo from '../../../assets/images/password-icon.png'
 import settings from '../../../assets/images/settings-icon.png'
 
 import './style.scss';
-import { Link } from 'react-router-dom';
 
 function Login() {
   const [userData, setUserData] = useState({ username: "", password: "" })
@@ -72,7 +72,7 @@ function Login() {
             <button onClick={handleSubmit}>submit</button>
             <div className="links">
               <a href="">forgot password</a>,&nbsp;&nbsp;
-              <Link to={"/signup"}>i don't have an account</Link>
+              {/* <Link to={"/signup"}>i don't have an account</Link> */}
             </div>
           </form>
         </div>

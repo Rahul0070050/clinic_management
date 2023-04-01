@@ -13,7 +13,20 @@
         height: 45rem;
         box-shadow: 0 0 15px black;
         border-radius: 10px;
-        overflow: hidden;
+        position: relative;
+        
+        .error-message {
+            position: absolute;
+            bottom: -3.9rem;
+            right: 0;
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+            font-size: 1.3rem;
+            background-color: rgba(219, 3, 3, 0.227);
+            border: 2px solid red;
+        }
+
 
         .banner {
             overflow: hidden;
@@ -46,7 +59,7 @@
 
             h1 {
                 font-size: 2.5rem;
-
+                
                 span {
                     color: gray;
                 }
@@ -86,10 +99,15 @@
                         flex-direction: column;
                         width: 100%;
 
+                        .err-color {
+                            &::placeholder {
+                                color: red;
+                            }
+                        }
                         input {
-                            font-size: 1.4rem;
+                            font-size: 1rem;
                             padding: 0.5rem;
-                            letter-spacing: 0.3rem;
+                            letter-spacing: 0.1rem;
                             outline: none;
                             border: none;
                             border-bottom: 1px solid black;

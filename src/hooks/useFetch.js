@@ -26,7 +26,6 @@ export default function useFetch(method) {
             METHOD = null;
     }
 
-    console.log(BASEURL);
 
     return function fetchData(url, data) {
         if(!BASEURL.endsWith(url))
@@ -48,13 +47,14 @@ export default function useFetch(method) {
                         Authorization: `Bearer ${JSON.parse(localStorage.getItem('user-token')) || ""}`
                     }
                 }).then(res => {
-                    resolve(res.data);
+                    resolve(res?.data);
                 }).catch(err => {
-                    console.log(err.response.data.message);
-                    reject(err.response.data.message);
+                    console.log(err?.response?.data?.message);
+                    reject(err?.response?.data?.message);
                 })
             } catch (error) {
-                reject(error.message);
+                console.log(error?.message);
+                reject(error?.message);
             }
         })
     }

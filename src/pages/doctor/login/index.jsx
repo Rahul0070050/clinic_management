@@ -53,7 +53,7 @@ function Login() {
 
             postRequest('/doctor/login', userData).then(res => {
                 console.log(res);
-                localStorage.setItem('user-token', JSON.stringify(res.token))
+                localStorage.setItem('doctor-token', JSON.stringify(res.token))
                 navigate('/doctor')
             }).catch(err => {
                 setErr(prev => err)

@@ -76,9 +76,9 @@ function Login() {
         </div>
         <div className="form-container">
           <h1 className="heading">
-            <span>We Are Here </span>For You
+            <span>Login </span>
           </h1>
-          <p>iusto nemo sunt maxime aspernatur fugiat velit, minus assumenda corporis deleniti perferendis ut blanditiis dignissimos quos ducimus!</p>
+          <p>minus assumenda corporis deleniti perferendis ut blanditiis dignissimos quos ducimus!</p>
           <form>
 
             <div className="form-control">

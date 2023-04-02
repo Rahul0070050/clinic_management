@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 // pages
 import Login from './pages/client/login'
+import DoctorLogin from './pages/doctor/login'
 
 // style
 import './App.css'
@@ -16,6 +17,10 @@ const routes = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup />
+  },
+  {
+    path: '/doctor/login',
+    element: <DoctorLogin />
   }
 ])
 function App() {

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
+import useFetch from '../../../hooks/useFetch';
+
 import logo from '../../../assets/images/user-login-logo.png';
 import openEye from '../../../assets/images/open-eye.png';
 import closedEYe from '../../../assets/images/closed-eye.png';
@@ -10,7 +12,6 @@ import passwordLogo from '../../../assets/images/password-icon.png'
 import settings from '../../../assets/images/settings-icon.png'
 
 import './style.scss';
-import useFetch from '../../../hooks/useFetch';
 
 function Login() {
   const [userData, setUserData] = useState({ email: "", password: "" });

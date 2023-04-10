@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 // pages
 import Login from './pages/client/login'
 import DoctorLogin from './pages/doctor/login'
+import UserHome from './pages/client/home'
 
 // style
 import './App.css'
@@ -21,6 +22,10 @@ const routes = createBrowserRouter([
   {
     path: '/doctor/login',
     element: <DoctorLogin />
+  },
+  {
+    path: '/',
+    element: <UserHome />
   }
 ])
 function App() {

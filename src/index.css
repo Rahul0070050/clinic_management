@@ -4,3 +4,9 @@
   box-sizing: border-box;
   font-family: sans-serif;
 }
+body {
+  height: fit-content;
+}
+body::-webkit-scrollbar {
+  display: none !important;
+}

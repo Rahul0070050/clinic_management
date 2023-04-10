@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 
 import useFetch from '../../../hooks/useFetch';
 
@@ -19,6 +19,7 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [err, setErr] = useState(null);
 
+  const navigate = useNavigate()
   const postRequest = useFetch("POST");
 
 

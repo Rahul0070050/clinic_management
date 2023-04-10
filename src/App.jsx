@@ -26,14 +26,16 @@ const routes = createBrowserRouter([
   },
   {
     path: '/',
-    element: <UserHome />
+    element: <>
+      <UserNavBar />
+      <UserHome />
+    </>
   }
 ])
 function App() {
   return (
     <>
-    <UserNavBar />
-    <RouterProvider router={routes}/>
+      <RouterProvider router={routes} />
     </>
   )
 }

@@ -1,5 +1,4 @@
 nav {
-    position: absolute;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -24,6 +23,7 @@ nav {
             margin: 0 1rem;
             font-weight: 600;
             font-size: larger;
+            cursor: pointer;
         }
     }
 }

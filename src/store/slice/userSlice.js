@@ -17,6 +17,9 @@ const userSlice = createSlice({
         },
         setUser: (state,payload) => {
             state.userName = payload.payload.username;
+        },
+        userLogout: (state,payload) => {
+            
         }
     }
 })

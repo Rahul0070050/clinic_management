@@ -6,16 +6,6 @@ import DoctorsList from '../../../components/userComponents/doctorSList';
 function UserHome() {
   return (
     <div className='user-home'>
-      <nav>
-        <div className="logo">
-          Skin Care
-        </div>
-        <div className="links">
-          <span>Help</span>
-          <span>User</span>
-          <span>User</span>
-        </div>
-      </nav>
       <div className="user-home-section">
         <div className="user-home-banner">
           <img src="https://blog.digitalinfobytes.com/wp-content/uploads/2022/06/software-for-healthcare-organizations-scaled.jpg" alt="" />

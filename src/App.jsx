@@ -9,6 +9,7 @@ import UserHome from './pages/client/home'
 // style
 import './App.css'
 import Signup from './pages/client/signup'
+import UserNavBar from './components/userComponents/navbar'
 
 const routes = createBrowserRouter([
   {
@@ -30,7 +31,10 @@ const routes = createBrowserRouter([
 ])
 function App() {
   return (
+    <>
+    <UserNavBar />
     <RouterProvider router={routes}/>
+    </>
   )
 }
 

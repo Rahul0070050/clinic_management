@@ -28,12 +28,12 @@ export default function useFetch(method) {
 
 
     return function fetchData(url, data) {
-        if(!BASEURL.endsWith(url))
+        if (!BASEURL.endsWith(url))
             BASEURL = BASEURL.concat(url);
-        
+
         return new Promise((resolve, reject) => {
             if (METHOD == null) {
-                reject("method is not applicable");
+                reject({ type: "", message: "method is not applicable" });
             }
             console.log(data);
 
@@ -49,8 +49,8 @@ export default function useFetch(method) {
                 }).then(res => {
                     resolve(res?.data);
                 }).catch(err => {
-                    console.log(err?.response?.data?.message);
-                    reject(err?.response?.data?.message);
+                    console.log(err?.response?.data);
+                    reject(err?.response?.data);
                 })
             } catch (error) {
                 console.log(error?.message);

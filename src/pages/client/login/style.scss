@@ -1,146 +1,94 @@
 .user-login {
-    padding: 1rem;
-    display: flex;
     height: 100vh;
-    width: 100vw;
-    align-items: center;
+    display: flex;
     justify-content: center;
+    align-items: center;
 
-    .login-container {
+    .info {
+        color: rgba(0, 0, 0, 0.5);
         display: flex;
-        align-items: center;
-        width: 40%;
-        height: 35rem;
-        box-shadow: 0 0 15px black;
-        border-radius: 10px;
-        position: relative;
-        
-        .error-message {
-            position: absolute;
-            bottom: -3.9rem;
-            right: 0;
-            width: 100%;
-            text-align: center;
-            padding: 1rem;
-            font-size: 1.3rem;
-            background-color: rgba(219, 3, 3, 0.227);
-            border: 2px solid red;
+        flex-direction: column;
+        width: 35rem;
+
+        h1 {
+            font-size: 5rem;
         }
 
-
-        .banner {
-            overflow: hidden;
-            width: 36%;
-            height: 100%;
-            position: relative;
-
-            .settings-icon {
-                position: absolute;
-                top: 0;
-                left: 0;
-                margin: 2rem;
-                width: 4rem;
-                transform: rotate(30deg);
-            }
-
-            .banner-background-image {
-                width: 100%;
-            }
+        h5 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 1.5rem 0;
         }
 
-        .form-container {
-            height: 100%;
-            width: 64%;
+        p {
+            font-size: larger;
+            font-weight: 600;
+        }
+
+        form {
             display: flex;
-            justify-content: center;
             flex-direction: column;
-            padding: 3rem;
-            margin: 1rem 0;
+            align-items: center;
+            margin-top: 3rem;
 
-            h1 {
-                font-size: 2.5rem;
-                
-                span {
-                    color: gray;
-                }
-            }
-
-            p {
-                margin: 2rem 0;
-                letter-spacing: 1px;
-                font-size: 1rem;
-                word-spacing: 2px;
-                text-transform: capitalize;
-                font-family: Verdana, Geneva, Tahoma, sans-serif;
-            }
-
-            form {
+            .form-control {
+                position: relative;
+                width: 100%;
                 display: flex;
                 flex-direction: column;
-                align-items: flex-end;
 
-                .form-control {
-                    margin: 1rem 0;
-                    position: relative;
-                    display: flex;
-                    width: 100%;
-
-                    .icon {
-                        width: 1.2rem;
-                        margin: 1rem 1rem 0 0;
-
-                        img {
-                            width: 100%;
-                        }
-                    }
-
-                    .input-control {
-                        display: flex;
-                        flex-direction: column;
-                        width: 100%;
-
-                        .err-color {
-                            &::placeholder {
-                                color: red;
-                            }
-                        }
-                        input {
-                            font-size: 1rem;
-                            padding: 0.5rem;
-                            letter-spacing: 0.1rem;
-                            outline: none;
-                            border: none;
-                            border-bottom: 1px solid black;
-                        }
-
-                        .password-visibility {
-                            position: absolute;
-                            width: 30px;
-                            top: 0.2rem;
-                            right: 0.8rem;
-
-                            &:hover {
-                                cursor: pointer;
-                            }
-                        }
-                    }
+                &:last-child {
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-direction: row;
                 }
 
-                button {
-                    padding: 0.5rem 2rem;
-                    font-size: 1.6rem;
-                    margin: 0.5rem 0 1rem 0;
-                    text-transform: capitalize;
-                    background-color: #8cd0f7;
-                    border-radius: 10px;
-                    border: none;
+                img {
+                    position: absolute;
+                    top: 3.5rem;
+                    right: 1.5rem;
                     cursor: pointer;
                 }
 
-                a {
-                    margin: 0.4rem 0;
+                label {
+                    font-size: x-large;
+
+                    span {
+                        color: rgb(255, 62, 62);
+                    }
                 }
+
+                input {
+                    font-size: x-large;
+                    color: rgba(0, 0, 0, 0.5);
+                    outline: none;
+                    margin: 1rem 0;
+                    padding: 0.5rem;
+                    border-radius: 10px;
+                    border: 2px solid rgba(0, 0, 0, 0.5);
+
+                    &:nth-child(2) {}
+                }
+
             }
+
+            input[type="button"] {
+                background: linear-gradient(68.08deg, #9083D5 9.64%, #807593 92.49%);
+                padding: 1rem 2.5rem;
+                border: none;
+                width: 30%;
+                color: white;
+                font-size: larger;
+                border-radius: 10px;
+                margin: 1rem 0;
+            }
+        }
+    }
+
+    .image {
+        margin-bottom: -10rem;
+        img {
+            width: 48rem;
         }
     }
 }

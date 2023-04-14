@@ -14,11 +14,17 @@ import UserNavBar from './components/userComponents/navbar'
 const routes = createBrowserRouter([
   {
     path: "/login",
-    element: <Login />
+    element: <>
+      <UserNavBar />
+      <Login />
+    </>
   },
   {
     path: "/signup",
-    element: <Signup />
+    element: <>
+      <UserNavBar />
+      <Signup />
+    </>
   },
   {
     path: '/doctor/login',

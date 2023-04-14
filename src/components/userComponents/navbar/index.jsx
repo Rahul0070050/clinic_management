@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import swal from 'sweetalert'
 
+import siteLogo from './../../../assets/svg/site-logo.svg'
+
 import './style.scss'
+import { NavLink } from 'react-router-dom'
 
 function UserNavBar() {
   const userToken = localStorage.getItem('user-token')
-  if (!userToken) {
-    localStorage.removeItem('user-token')
-    window.location = '/login'
-  }
+  const [logedIn, setLogedIn] = useState(() => localStorage.getItem('user-token') ? true : false);
+
   function logoutHandler() {
     if (userToken) {
       swal({
@@ -31,14 +32,35 @@ function UserNavBar() {
   return (
     <nav>
       <div className="logo">
-        Skin Care
+        <img src={siteLogo} alt="" />
+        <span>Skin Care</span>
       </div>
-      <div className="links">
-        <span>Help</span>
-        <span>User</span>
-        <span onClick={logoutHandler}>Logout</span>
-      </div>
-    </nav>)
+      <ul>
+        <li>
+          <NavLink to="/">Home</NavLink>
+        </li>
+        {logedIn && <li>
+          <NavLink to="/appointment">Appointment</NavLink>
+        </li>}
+        <li>
+          <NavLink to="/services">Services</NavLink>
+        </li>
+        <li>
+          <NavLink to="/about-us">About Us</NavLink>
+        </li>
+        <li>
+          <NavLink to="/contact-us">Contact US</NavLink>
+        </li>
+        <li>
+          {logedIn ?
+            <button onClick={logoutHandler}>LogOut</button>
+            :
+            <button onClick={() => window.location = '/login'}>Login</button>
+          }
+        </li>
+      </ul>
+    </nav >
+  )
 
 }
 

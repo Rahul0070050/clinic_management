@@ -48,7 +48,7 @@
             .form-control {
                 display: flex;
                 flex-direction: column;
-                margin: 0.6rem;
+                margin: 0.5rem 0.6rem;
                 width: 37rem;
 
                 label {
@@ -61,7 +61,7 @@
                 }
 
                 input,select {
-                    font-size: xx-large;
+                    font-size: x-large;
                     color: rgba(0, 0, 0, 0.5);
                     outline: none;
                     margin: 1rem 0;

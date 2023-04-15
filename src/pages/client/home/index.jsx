@@ -7,6 +7,8 @@ import person2 from '../../../assets/svg/person-2.svg'
 import aboutBackground from '../../../assets/svg/about-section-background.svg'
 
 import './style.scss';
+import ContactForm from '../../../components/userComponents/contactForm';
+import Footer from '../../../components/userComponents/footer';
 
 function UserHome() {
   return (
@@ -57,10 +59,6 @@ function UserHome() {
       <div className="doctor-list-section">
         <div className="header">
           <h1>All Doctors</h1>
-          <div className="search">
-            <input type="text" name="" id="" />
-            <input type="button" name="" id="" value="Search" />
-          </div>
         </div>
         <div className="doctors-list">
           <div className="card">
@@ -115,7 +113,15 @@ function UserHome() {
           </div>
         </div>
       </div>
-      <div className="doctor-list-section"></div>
+      <div className="contact-section">
+        <div className="header">
+          <h1>Send a message</h1>
+        </div>
+        <ContactForm />
+      </div>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   )
 }

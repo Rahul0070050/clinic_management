@@ -10,6 +10,7 @@ import UserHome from './pages/client/home'
 import './App.css'
 import Signup from './pages/client/signup'
 import UserNavBar from './components/userComponents/navbar'
+import BookAppointments from './pages/client/bookAppointment'
 
 const routes = createBrowserRouter([
   {
@@ -24,6 +25,13 @@ const routes = createBrowserRouter([
     element: <>
       <UserNavBar />
       <Signup />
+    </>
+  },
+  {
+    path: "/appointment",
+    element: <>
+      <UserNavBar />
+      <BookAppointments />
     </>
   },
   {

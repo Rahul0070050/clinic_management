@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import swal from 'sweetalert'
 
 import siteLogo from './../../../assets/svg/site-logo.svg'
 
 import './style.scss'
-import { NavLink } from 'react-router-dom'
 
 function UserNavBar() {
   const userToken = localStorage.getItem('user-token')

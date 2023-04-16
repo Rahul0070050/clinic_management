@@ -39,6 +39,10 @@ const routes = createBrowserRouter([
     element: <DoctorLogin />
   },
   {
+    path: '/admin/login',
+    element: <DoctorLogin />
+  },
+  {
     path: '/',
     element: <>
       <UserNavBar />

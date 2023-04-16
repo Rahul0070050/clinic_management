@@ -3,12 +3,16 @@ import { NavLink } from 'react-router-dom'
 import swal from 'sweetalert'
 
 import siteLogo from './../../../assets/svg/site-logo.svg'
+import { userLogout } from '../../../store/slice/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 import './style.scss'
 
 function UserNavBar() {
   const userToken = localStorage.getItem('user-token')
-  const [logedIn, setLogedIn] = useState(() => localStorage.getItem('user-token') ? true : false);
+  const { login } = useSelector(state => state.root.user);
+  console.log(login);
+  const dispatch = useDispatch();
 
   function logoutHandler() {
     if (userToken) {
@@ -20,12 +24,7 @@ function UserNavBar() {
         dangerMode: true,
       })
         .then((willDelete) => {
-          if (willDelete) {
-            localStorage.removeItem('user-token')
-            window.location = '/login'
-          } else {
-            //
-          }
+          dispatch(userLogout(willDelete))
         });
     }
   }
@@ -39,20 +38,20 @@ function UserNavBar() {
         <li>
           <NavLink to="/">Home</NavLink>
         </li>
-        {logedIn && <li>
+        {login && <li>
           <NavLink to="/appointment">Appointment</NavLink>
         </li>}
         <li>
           <NavLink to="/services">Services</NavLink>
         </li>
         <li>
-          <NavLink to="/about-us">About Us</NavLink>
+          <NavLink to="/about-us">About US</NavLink>
         </li>
         <li>
           <NavLink to="/contact-us">Contact US</NavLink>
         </li>
         <li>
-          {logedIn ?
+          {login ?
             <button onClick={logoutHandler}>LogOut</button>
             :
             <button onClick={() => window.location = '/login'}>Login</button>

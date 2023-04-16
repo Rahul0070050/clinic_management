@@ -35,7 +35,6 @@ export default function useFetch(method) {
             if (METHOD == null) {
                 reject({ type: "", message: "method is not applicable" });
             }
-            console.log(data);
 
             try {
                 axios({

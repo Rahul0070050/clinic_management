@@ -3,22 +3,20 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import useFetch from '../../../hooks/useFetch';
 
-import logo from '../../../assets/images/user-login-logo.png';
 import openEye from '../../../assets/images/open-eye.png';
 import closedEYe from '../../../assets/images/closed-eye.png';
-import backGroundImage from '../../../assets/images/user-login-background.jpg'
-import userLogo from '../../../assets/images/user-logo.png'
-import passwordLogo from '../../../assets/images/password-icon.png'
 import sideImage from '../../../assets/svg/login-page-logo.svg'
 
 import './style.scss';
+import { useDispatch } from 'react-redux';
+import { userLogin } from '../../../store/slice/userSlice';
 
 function Login() {
   const [userData, setUserData] = useState({ email: "", password: "", confirm_password: "" });
   const [userDataErr, setUserDataErr] = useState({ email: "", password: "", confirm_password: "" });
   const [showPassword, setShowPassword] = useState(false);
-
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  // const navigate = useNavigate()
   const postRequest = useFetch("POST");
 
 
@@ -83,9 +81,8 @@ function Login() {
     try {
 
       postRequest('/user/login', userData).then(res => {
-        console.log(res);
         localStorage.setItem('user-token', JSON.stringify(res.token))
-        navigate('/')
+        dispatch(userLogin(res.user))
       }).catch(err => {
         setUserDataErr(prev => {
           return {

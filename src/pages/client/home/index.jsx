@@ -9,6 +9,7 @@ import aboutBackground from '../../../assets/svg/about-section-background.svg'
 import './style.scss';
 import ContactForm from '../../../components/userComponents/contactForm';
 import Footer from '../../../components/userComponents/footer';
+import { Link } from 'react-router-dom';
 
 function UserHome() {
   return (
@@ -17,7 +18,7 @@ function UserHome() {
         <div className="text">
           <h1>We help people to get appointment in online</h1>
           <span>Lorem Media is a full-service social media agency. We offer businesses innovative solutions that deliver the right type of audience to you in the most effective strategies possible. We strive to develop a community around your business, polishing your branding, and improving your public relations.</span>
-          <a href="#">Book an appointment</a>
+          <Link to="/appointment">Book an appointment</Link>
         </div>
         <div className="image">
           <img src={backgroundSvg} alt="" />

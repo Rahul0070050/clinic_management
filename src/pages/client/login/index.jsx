@@ -7,9 +7,10 @@ import openEye from '../../../assets/images/open-eye.png';
 import closedEYe from '../../../assets/images/closed-eye.png';
 import sideImage from '../../../assets/svg/login-page-logo.svg'
 
-import './style.scss';
 import { useDispatch } from 'react-redux';
 import { userLogin } from '../../../store/slice/userSlice';
+
+import './style.scss';
 
 function Login() {
   const [userData, setUserData] = useState({ email: "", password: "", confirm_password: "" });

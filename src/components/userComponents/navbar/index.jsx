@@ -29,7 +29,7 @@ function UserNavBar() {
     }
   }
   return (
-    <nav>
+    <nav className='user-navbar'>
       <div className="logo">
         <img src={siteLogo} alt="" />
         <span>Skin Care</span>

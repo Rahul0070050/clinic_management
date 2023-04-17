@@ -11,7 +11,10 @@ import './App.css'
 import Signup from './pages/client/signup'
 import UserNavBar from './components/userComponents/navbar'
 import BookAppointments from './pages/client/bookAppointment'
-
+import AdminLogin from './pages/admin/login'
+import AdminHome from './pages/admin/home'
+import AdminNavBar from './components/adminComponents/navbar'
+import AdminDoctorsList from './pages/admin/doctors'
 const routes = createBrowserRouter([
   {
     path: "/login",
@@ -40,7 +43,21 @@ const routes = createBrowserRouter([
   },
   {
     path: '/admin/login',
-    element: <DoctorLogin />
+    element: <AdminLogin />
+  },
+  {
+    path: '/admin/dashboard',
+    element: <>
+      <AdminNavBar />
+      <AdminHome />
+    </>
+  },
+  {
+    path: '/admin/doctors',
+    element: <>
+      <AdminNavBar />
+      <AdminDoctorsList />
+    </>
   },
   {
     path: '/',

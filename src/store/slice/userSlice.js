@@ -9,7 +9,8 @@ const initialState = {
     DOB: null,
     gender: null,
     loading: false,
-    login: localStorage.getItem('user-token') ? true : false
+    login: localStorage.getItem('user-token') ? true : false,
+    doctors: [],
 }
 
 const userSlice = createSlice({
@@ -26,12 +27,13 @@ const userSlice = createSlice({
             state.mobile = payload.mobile
             state.DOB = payload.dateOfBirth
             state.login = true
-            console.log('hi');
-            window.location = '/'
             console.log(payload);
         },
         setUser: (state, payload) => {
             state.userName = payload.payload.username;
+        },
+        setDoctors: (state, { payload }) => {
+            state.doctors.push(...payload)
         },
         userLogout: (state, { payload }) => {
             if (payload) {
@@ -44,6 +46,6 @@ const userSlice = createSlice({
 
 const userReducer = userSlice.reducer
 
-export const { setUser, startLoading, userLogout, userLogin } = userSlice.actions;
+export const { setUser, startLoading, userLogout, userLogin,setDoctors } = userSlice.actions;
 
 export default userReducer;

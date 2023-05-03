@@ -1,0 +1,97 @@
+.doctor-slots-page {
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    .calender-container {
+        width: 60rem;
+        display: flex;
+        flex-direction: column;
+
+        .calender {
+            width: 100%;
+
+            .react-calendar__month-view__days__day--weekend {
+                background-color: #f0f0f0;
+                pointer-events: none;
+            }
+
+            .react-calendar__month-view__weekdays__weekday,
+            button {
+                padding: 3rem;
+            }
+        }
+
+        .btns {
+            display: flex;
+            &>button {
+                width: 50%;
+                margin: 1rem;
+                font-size: x-large;
+                padding: 1rem;
+                font-weight: 600;
+                border-radius: 10px;
+                border: 1px solid black;
+                background: linear-gradient(68.08deg, #9083D5 9.64%, #807593 92.49%);
+                cursor: pointer;
+                color: white;
+            }
+        }
+    }
+
+    .time-slot-container {
+        border: 1px solid black;
+        padding: 1rem 0;
+        height: fit-content;
+
+        h1 {
+            margin: 1rem;
+            position: fixed;
+        }
+
+        .times {
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            height: fit-content;
+            overflow: auto;
+            margin-top: 5rem;
+            width: 42rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+
+            .time {
+                display: inline;
+                width: fit-content;
+                padding: 1rem;
+                height: fit-content;
+                text-align: center;
+                margin: 1rem 0;
+                border-radius: 50px;
+                border: 2px solid black;
+                font-size: x-large;
+                font-weight: 600;
+                cursor: pointer;
+            }
+
+            .select {
+                background-color: rgba(5, 216, 5, 0.397);
+            }
+            .selected {
+                background-color: rgb(0, 168, 0);
+                color: white;
+            }
+
+            .booked {}
+
+            .not-selected {
+                background-color: gray;
+                pointer-events: none;
+            }
+        }
+    }
+}

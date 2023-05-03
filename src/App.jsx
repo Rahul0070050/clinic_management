@@ -14,18 +14,30 @@ import AdminLogin from './pages/admin/login'
 import AdminHome from './pages/admin/home'
 import AdminNavBar from './components/adminComponents/navbar'
 import AdminDoctorsList from './pages/admin/doctors'
+import AddDoctor from './pages/admin/addDoctor'
+import DoctorHome from './pages/doctor/home'
+import DoctorNavBar from './components/doctorComponents/navbar'
+import DoctorSlots from './pages/doctor/slots'
+import ClientSlotsBooking from './pages/client/Slots'
+import AllPatientsList from './pages/admin/Patients'
+import AllUser from './pages/admin/users'
 const routes = createBrowserRouter([
+  {
+    path: '/',
+    element: <>
+      <UserNavBar />
+      <UserHome />
+    </>
+  },
   {
     path: "/login",
     element: <>
-      <UserNavBar />
       <Login />
     </>
   },
   {
     path: "/signup",
     element: <>
-      <UserNavBar />
       <Signup />
     </>
   },
@@ -33,7 +45,7 @@ const routes = createBrowserRouter([
     path: "/appointment",
     element: <>
       <UserNavBar />
-      <BookAppointments />
+      <ClientSlotsBooking />
     </>
   },
   {
@@ -59,10 +71,38 @@ const routes = createBrowserRouter([
     </>
   },
   {
-    path: '/',
+    path: '/admin/patients',
     element: <>
-      <UserNavBar />
-      <UserHome />
+      <AdminNavBar />
+      <AllPatientsList />
+    </>
+  },
+  {
+    path: '/admin/users',
+    element: <>
+      <AdminNavBar />
+      <AllUser />
+    </>
+  },
+  {
+    path: '/admin/doctors/add',
+    element: <>
+      <AdminNavBar />
+      <AddDoctor />
+    </>
+  },
+  {
+    path: '/doctor/home',
+    element: <>
+      <DoctorNavBar />
+      <DoctorHome />
+    </>
+  },
+  {
+    path: '/doctor/slots',
+    element: <>
+      <DoctorNavBar />
+      <DoctorSlots />
     </>
   }
 ])

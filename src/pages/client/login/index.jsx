@@ -83,6 +83,8 @@ function Login() {
 
       postRequest('/user/login', userData).then(res => {
         localStorage.setItem('user-token', JSON.stringify(res.token))
+        localStorage.setItem('logedIn', true)
+        window.location = '/'
         dispatch(userLogin(res.user))
       }).catch(err => {
         setUserDataErr(prev => {

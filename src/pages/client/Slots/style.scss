@@ -1,0 +1,25 @@
+.client-slots-booking {
+    padding: 1rem;
+
+    .slots {
+        width: 60%;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+
+        .dates {
+            
+        }
+        .times {
+
+            div {
+                padding: 1rem;
+                font-size: larger;
+                font-weight: 600;
+                background-color: greenyellow;
+                width: fit-content;
+                margin: 0.5rem;
+            }
+        }
+    }
+}

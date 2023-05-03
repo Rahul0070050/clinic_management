@@ -6,13 +6,8 @@ $half-spacing-unit: $base-spacing-unit / 2;
 $color-alpha: #1772FF;
 $color-form-highlight: #EEEEEE;
 
-.admin-home-page {
-    .charts {
-        margin: 2rem;
-        display: flex;
-        justify-content: space-around;
-    }
 
+.admin-all-user-list {
     .all-patients {
         width: 100%;
         display: flex;
@@ -80,6 +75,7 @@ $color-form-highlight: #EEEEEE;
         }
 
         .table-data {
+            font-size: 1.2rem;
             span {
                 img {
                     margin: 0 1rem;

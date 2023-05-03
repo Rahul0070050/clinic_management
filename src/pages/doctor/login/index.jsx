@@ -7,12 +7,15 @@ import closedEYe from '../../../assets/images/closed-eye.png';
 import sideImage from '../../../assets/svg/login-page-logo.svg'
 
 import './style.scss';
+import { useDispatch } from 'react-redux';
+import { setInfo } from '../../../store/slice/doctorsSlice';
 
 function Login() {
   const [userData, setUserData] = useState({ username: "", password: "", confirm_password: "" });
   const [userDataErr, setUserDataErr] = useState({ username: "", password: "", confirm_password: "" });
   const [showPassword, setShowPassword] = useState(false);
 
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const postRequest = useFetch("POST");
 
@@ -79,8 +82,9 @@ function Login() {
 
       postRequest('/doctor/login', userData).then(res => {
         console.log(res);
+        dispatch(setInfo(res.info))
         localStorage.setItem('doctor-token', JSON.stringify(res.token))
-        navigate('/doctor')
+        navigate('/doctor/home')
       }).catch(err => {
         setUserDataErr(prev => {
           return {

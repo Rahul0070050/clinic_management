@@ -18,3 +18,7 @@ export function checkMobileNumberHasAnyCharacter(str) {
 export function checkEmail(email) {
     return EMAILREGEX.test(email)
 }
+
+export function isLogedIn() {
+    return localStorage.getItem(logedIn) ? true : false;
+}

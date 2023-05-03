@@ -1,0 +1,111 @@
+.admin-doctors-list-page {
+    .header {
+        padding: 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        a {
+            background: linear-gradient(68.08deg, #9083D5 9.64%, #807593 92.49%);
+            color: white;
+            box-shadow: 0 0 10px gray;
+            border: none;
+            font-size: x-large;
+            cursor: pointer;
+            text-decoration: none;
+            padding: 0.4rem 1rem;
+            border-radius: 10px;
+            font-size: large;
+        }
+    }
+    height: fit-content !important;
+    .doctors-list {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        table {
+            border-spacing: 0;
+            width: 90%;
+
+            tr {
+                td {
+                    border: 1px solid #5e5e5e;
+                    text-align: center;
+                }
+
+                text-align: left;
+            }
+
+
+            thead {
+                tr {
+                    td {
+                        font-size: larger;
+                        padding: 1rem;
+                    }
+                }
+            }
+
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+
+            tbody {
+                tr {
+
+                    td {
+                        font-size: larger;
+
+                        &:not(:nth-child(8)):not(:last-child) {
+                            padding: 1rem;
+                        }
+
+                        &:nth-child(8),
+                        &:last-child {
+                            cursor: pointer;
+                            padding: 0.5rem;
+                        }
+
+
+                        button {
+                            background: linear-gradient(68.08deg, #83d59d 9.64%, #78c386 92.49%);
+                            color: white;
+                            box-shadow: 0 0 10px rgba(43, 161, 92, 0.525);
+                            border: none;
+                            font-size: x-large;
+                            cursor: pointer;
+                            text-decoration: none;
+                            padding: 0.4rem 1rem;
+                            border-radius: 10px;
+                            font-size: large;
+                        }
+                    }
+                }
+
+            }
+        }
+        .buttons {
+            display: flex;
+            align-items: center;
+
+            *:nth-child(1) {
+                margin-right: 2rem;
+            }
+            *:nth-child(6) {
+                margin-left: 2rem;
+            }
+            button {
+                padding: 0.5rem;
+                font-weight: 900;
+                font-size: xx-large;
+            }
+            span {
+                padding: 1rem;
+                margin: 0 0.3rem;
+                border: 1px solid black;
+                font-size: 1.5rem;
+            }
+            margin: 1.5rem 0;
+        }
+    }
+}

@@ -10,15 +10,15 @@ import './style.scss'
 
 function UserNavBar() {
   const userToken = localStorage.getItem('user-token')
+
   const { login } = useSelector(state => state.root.user);
-  console.log(login);
   const dispatch = useDispatch();
 
   function logoutHandler() {
     if (userToken) {
       swal({
         title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
+        text: "Are you sure!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -51,7 +51,7 @@ function UserNavBar() {
           <NavLink to="/contact-us">Contact US</NavLink>
         </li>
         <li>
-          {login ?
+          {userToken ?
             <button onClick={logoutHandler}>LogOut</button>
             :
             <button onClick={() => window.location = '/login'}>Login</button>

@@ -76,7 +76,7 @@ function AdminLogin() {
 
             postRequest('/admin/login', formData).then(res => {
                 localStorage.setItem('admin-token', JSON.stringify(res.token))
-                window.location = "/admin"
+                window.location = "/admin/dashboard"
             }).catch(err => {
                 console.log(err);
                 try {

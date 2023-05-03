@@ -141,7 +141,7 @@ function Signup() {
             postRequest("/user/signup", userData).then(res => {
                 console.log(res);
                 localStorage.setItem('user-token', JSON.stringify(res.token))
-                navigate('/')
+                navigate('/login')
             }).catch(err => {
                 console.log(err);
                 setUserDataErr(prev => {

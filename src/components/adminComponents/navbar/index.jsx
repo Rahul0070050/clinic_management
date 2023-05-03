@@ -7,10 +7,11 @@ import siteLogo from './../../../assets/svg/site-logo.svg'
 import notificationIcon from './../../../assets/svg/notification-icon.svg'
 import searchIcon from './../../../assets/svg/search-icon.svg'
 import { userLogout } from '../../../store/slice/userSlice'
+
 import './style.scss'
 
 function AdminNavBar() {
-  const userToken = localStorage.getItem('user-token')
+  const userToken = localStorage.getItem('admin-token')
   const { login } = useSelector(state => state.root.user);
   console.log(login);
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ function AdminNavBar() {
           <li><NavLink to={'/admin/doctors'}>Doctors</NavLink></li>
           <li><NavLink to={'/admin/admin/departments'}>Departments</NavLink></li>
           <li><NavLink to={'/admin/patients'}>Patients</NavLink></li>
+          <li><NavLink to={'/admin/users'}>users</NavLink></li>
           <li><NavLink to={'/admin/payments'}>Payments</NavLink></li>
           <li><NavLink to={'/admin/service-page'}>Service page</NavLink></li>
           <li><NavLink to={'/admin/help'}>Help</NavLink></li>

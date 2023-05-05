@@ -147,7 +147,12 @@ function DoctorSlots() {
         })
     }
     function handleSubmit() {
-        formData.time = times
+        formData.time = times.filter(time => {
+            if (!time.selected) {
+                time.doctor = ""
+            }
+            return time
+        })
         formData.date = date
 
         postRequest('/doctor/add-slots', formData).then(() => {

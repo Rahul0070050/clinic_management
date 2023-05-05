@@ -1,24 +1,155 @@
 .client-slots-booking {
     padding: 1rem;
+    display: flex;
+    justify-content: space-evenly;
 
     .slots {
-        width: 60%;
+        width: 50%;
         padding: 1rem;
         display: flex;
         flex-direction: column;
+        border: 1px solid white;
+        align-items: center;
+        border-radius: 10px;
+        height: 90vh;
+        overflow: auto;
+        box-shadow: inset 0px 0px 5px rgb(211, 197, 142);
+
+        &::-webkit-scrollbar {
+            // display: none;
+        }
+
+        h1 {
+            align-self: self-start;
+            margin: 2rem 1rem;
+        }
 
         .dates {
-            
+            margin: 1rem;
+
+            span {
+                padding: 0.5rem 1rem;
+                cursor: pointer;
+            }
+
+            .selected {
+                color: green;
+                box-shadow: inset 0 0 4px 4px rgb(202, 202, 202);
+                border-radius: 5px;
+            }
         }
+
         .times {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            margin: 2rem 0 1rem 0;
+            align-items: center;
+            height: 80vh;
+            overflow: auto;
+
+            &::-webkit-scrollbar {
+                width: 10px !important;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: #7debffa3;
+                box-shadow: inset 0 0 4px 4px rgba(128, 128, 128, 0.295);
+            }
+
+            &::-webkit-scrollbar-track {
+                background-color: white;
+                box-shadow: inset 0 0 5px 1px gray;
+            }
 
             div {
+                text-align: center;
                 padding: 1rem;
                 font-size: larger;
                 font-weight: 600;
-                background-color: greenyellow;
-                width: fit-content;
+                background-color: white;
+                border-radius: 5px;
+                cursor: pointer;
+                color: gray;
+                box-shadow: 0 0 4px 4px rgb(230, 230, 230);
+                width: 90%;
                 margin: 0.5rem;
+            }
+
+            .not-available {
+                background-color: rgba(158, 158, 158, 0.349);
+                box-shadow: inset 0 0 4px 4px rgb(230, 230, 230);
+                pointer-events: none;
+            }
+
+            .clicked {
+                color: black;
+                box-shadow: inset 0 0 4px 4px rgb(92, 248, 92);
+                background-color: rgba(30, 230, 30, 0.603);
+            }
+
+            .suggestion {
+                box-shadow: inset 0 0 4px 4px rgba(49, 155, 241, 0.171);
+                background-color: rgba(7, 141, 7, 0.171);
+            }
+        }
+    }
+
+    .appointment-form {
+        box-shadow: inset 0px 0px 5px rgb(211, 197, 142);
+        border-radius: 10px;
+        width: 45%;
+
+        form {
+            width: 100%;
+            padding: 1rem;
+
+            .form-control {
+                display: flex;
+
+                .form-group {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 0.5rem;
+                    width: 100%;
+
+                    label {
+                        font-size: medium;
+                        text-transform: uppercase;
+                        color: gray;
+                    }
+
+                    input,
+                    select {
+                        font-size: larger;
+                        padding: 0.5rem 0.2rem;
+                        border: none;
+                        border-bottom: 2px solid gray;
+                        outline: none;
+                        width: 100%;
+                        color: gray;
+
+                        &:focus {
+                            border-bottom: 2px solid black;
+                            color: black;
+                        }
+                    }
+
+                    textarea {
+                        margin-top: 1rem;
+                        font-size: large;
+                    }
+                    input[type="button"] {
+                        border: 2px solid gray;
+                        color: rgb(95, 95, 95);
+                        font-size: x-large;
+                        text-transform: uppercase;
+                        font-weight: 600;
+                        // width: 90%;
+                        align-self: center;
+                        border-radius: 20px;
+                    }
+                }
             }
         }
     }

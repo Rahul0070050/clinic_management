@@ -9,6 +9,22 @@
         display: flex;
         flex-direction: column;
 
+        .auto-selected {
+            .react-calendar__tile--active {
+                background-color: #ffffff;
+                color: black;
+            }
+
+            .react-calendar__month-view__days {
+
+                button:not([disabled]) {
+                    &:first-child {
+                        background-color: red;
+                    }
+                }
+            }
+        }
+
         .calender {
             width: 100%;
 
@@ -25,6 +41,7 @@
 
         .btns {
             display: flex;
+
             &>button {
                 width: 50%;
                 margin: 1rem;
@@ -81,12 +98,17 @@
             .select {
                 background-color: rgba(5, 216, 5, 0.397);
             }
+
             .selected {
                 background-color: rgb(0, 168, 0);
                 color: white;
             }
 
-            .booked {}
+            .booked {
+                background-color: rgb(179, 51, 51) !important;
+                color: white !important;
+                pointer-events: none !important;
+            }
 
             .not-selected {
                 background-color: gray;

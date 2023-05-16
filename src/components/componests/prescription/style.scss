@@ -1,0 +1,60 @@
+.doctor-prescription-view {
+
+    .header {
+        justify-content: center;
+        display: flex;
+        align-items: center;
+
+        h2 {
+            width: 100%;
+            border: 1px solid black;
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            text-transform: capitalize;
+            font-size: larger;
+
+            &:first-child {
+                display: flex;
+                justify-content: start;
+                width: 200%;
+            }
+        }
+    }
+
+    .body {
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: self-end;
+        .list {
+            width: 100%;
+            display: flex;
+
+            h2 {
+                width: 100%;
+                border: 1px solid black;
+                display: flex;
+                justify-content: center;
+                padding: 0.5rem 1rem;
+                text-transform: capitalize;
+                font-size: larger;
+
+                &:first-child {
+                    display: flex;
+                    justify-content: start;
+                    width: 200%;
+                }
+            }
+        }
+        span {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: x-large;
+            margin: 0.2rem 0;
+            cursor: pointer;
+            font-size: 1.3rem;
+        }
+    }
+}

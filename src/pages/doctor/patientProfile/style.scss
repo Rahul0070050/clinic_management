@@ -1,0 +1,100 @@
+.patient-Profile {
+    padding: 1rem;
+    display: flex;
+
+    .patient-info {
+        box-shadow: 0 0 4px 4px rgba(128, 128, 128, 0.227);
+        width: 50%;
+        height: fit-content;
+        border-radius: 10px;
+
+        .info {
+            display: flex;
+            padding: 1rem;
+            justify-content: space-around;
+
+            .keys {
+                span {
+                    position: relative;
+
+                    &::after {
+                        content: ':';
+                        position: absolute;
+                        left: 10rem;
+                    }
+                }
+            }
+
+            .keys,
+            .values {
+                span {
+                    padding: 0.5rem 1rem;
+                }
+
+                color: black;
+                font-size: x-large;
+                text-transform: capitalize;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+
+    .patient-history {
+        width: 50%;
+        height: 88vh;
+
+        .header {
+            margin: 2rem 0 2rem 3rem;
+        }
+
+        .container {
+            overflow: auto;
+            height: 90%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+            .history {
+                margin: 1rem 0;
+                box-shadow: 0 0 4px 4px rgba(128, 128, 128, 0.268);
+                width: 90%;
+                padding: 1rem;
+                border-radius: 10px;
+
+                .info {
+                    display: flex;
+                    justify-content: space-around;
+                    width: 100%;
+
+                    .keys,
+                    .values {
+                        margin-top: 1rem;
+                        font-size: x-large;
+                        text-transform: capitalize;
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+
+                        span {
+                            width: 100%;
+                            padding: 0.5rem 0 0.5rem 0.5rem;
+                            border: 1px solid black;
+                        }
+                    }
+                }
+
+                .prescriptions {
+                    .header {
+                        margin: 1rem 0;
+                    }
+                }
+            }
+        }
+    }
+}

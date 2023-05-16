@@ -42,10 +42,10 @@ function DoctorNavBar() {
           <NavLink to="/doctor/slots">Slots</NavLink>
         </li>}
         {doctorToken && <li>
-          <NavLink to="/appointment">All Appointments</NavLink>
+          <NavLink to="/doctor/appointments">Appointments</NavLink>
         </li>}
         <li>
-          <NavLink to="/services">Patients</NavLink>
+          <NavLink to="/doctor/patients">Patients</NavLink>
         </li>
         <li>
           {doctorToken ?

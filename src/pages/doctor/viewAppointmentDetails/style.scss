@@ -1,0 +1,156 @@
+.doctor-appointment-info {
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+
+    .appointment-info {
+        margin-top: 2rem;
+        width: 50%;
+        height: fit-content;
+        padding: 1rem 0rem;
+        background-color: rgb(231, 231, 231);
+        border-radius: 10px;
+        box-shadow: 0 0 4px 4px rgba(128, 128, 128, 0.348);
+        padding: 1rem;
+
+        .info {
+            .header {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                
+                .image {
+                    display: flex;
+                    align-items: center;
+                    
+                    h2 {
+                        font-size: 2rem;
+                        text-transform: capitalize;
+                    }
+
+                    img {
+                        width: 2rem;
+                    }
+                }
+                p {
+                    text-align: center;
+                    font-size: larger;
+                    margin: 0.5rem 0;
+                }
+            }
+
+            .body {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                font-size: x-large;
+                text-transform: capitalize;
+
+                .patient, .doctor {
+                    display: flex;
+                    width: 50%;
+                    justify-content: space-between;
+                    padding: 1rem;
+                    .fields {
+                        span {
+                            width: 10rem;
+                            display: flex;
+                            justify-content: space-between;
+                        }
+
+                        span::after {
+                            content: ':';
+                        }
+                    }
+                    .values {
+                        margin-left: 1rem;
+                        display: flex;
+                        flex-direction: column;
+                    }
+                }
+            }
+            .symptoms {
+                display: flex;
+                flex-direction: column;
+                margin: 1rem 1rem;
+                label {
+                    margin: 0.5rem 0;
+                    font-size: x-large;
+                    text-transform: capitalize;
+                }
+                textarea {
+                    font-size: x-large;
+                }
+            }
+            .prescription {
+                display: flex;
+                justify-content: center;
+                position: relative;
+                
+                &>div {
+                    h4 {
+                        text-transform: capitalize;
+                        margin: 0.4rem 0.1rem;
+                        font-size: x-large;
+                    }
+                    display: flex;
+                    flex-direction: column;
+                    width: 50%;
+                    input {
+                        font-size: x-large;
+                        padding: 0.5rem;
+                    }
+                }
+                .values {
+                    display: flex;
+                    flex-direction: row;
+                    width: fit-content;
+                    &>div {
+                        text-align: center;
+                        display: flex;
+                        flex-direction: column;
+                    }
+                    input {
+                        text-align: center;
+                        width: 7rem;
+                    }
+                }
+                img {
+                    position: absolute;
+                    top: 0;
+                    right: 1rem;
+                    width: 2.5rem;
+                }
+                h1 {
+                    position: absolute;
+                    right: 0.9rem;
+                    bottom: 0;
+                    padding: 1rem;
+                    border: 2px solid black;
+                    border-radius: 20px;
+                    height: 2.6rem;
+                    width: 2.6rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        }
+        .btn {
+            display: flex;
+            justify-content: center;
+            padding: 1rem;
+            button {
+                width: 11rem;
+                padding: 0.3rem 1rem;
+                border-radius: 20px;
+                outline: none;
+                font-size: x-large;
+                text-transform: uppercase;
+                font-weight: 600;
+                border: 1px solid black;
+            }
+        }
+    }
+}

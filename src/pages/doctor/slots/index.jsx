@@ -19,6 +19,7 @@ function DoctorSlots() {
     maxDay.setDate(maxDay.getDate() + 7);
 
     const { decodedToken, isExpired, reEvaluateToken } = useJwt(JSON.parse(localStorage.getItem('doctor-token')))
+    const [selected, setselected] = useState(false)
     const [date, setDate] = useState(() => {
         let date = new Date()
         let weekday = date.toLocaleString("default", { weekday: "short" })
@@ -54,8 +55,11 @@ function DoctorSlots() {
         getRequest('/doctor/get-slots').then(response => {
             setProvidedDate(response.slots);
             let currentProvidedSlots = response.slots.find(item => new Date(item.date).toLocaleDateString() == new Date(date).toLocaleDateString())
+            console.log(currentProvidedSlots);
             setTimes(() => {
                 if (currentProvidedSlots?.times) {
+                    formData.date = new Date(currentProvidedSlots?.date)
+
                     let jsonCurrentProvidedSlots = JSON.stringify(currentProvidedSlots?.times)
                     jsonCurrentProvidedSlots = JSON.parse(jsonCurrentProvidedSlots)
                     setDate(currentProvidedSlots.date)
@@ -67,6 +71,10 @@ function DoctorSlots() {
                         return item
                     })
                 } else {
+                    formData.date = new Date(date)
+                    formData.date.setUTCHours(0, 0, 0, 0);
+
+                    formData.date.setDate(formData.date.getDate() + 1)
                     setLoading(false)
                     return slotTimes.filter(item => {
                         item.doctor = doctor
@@ -97,11 +105,16 @@ function DoctorSlots() {
 
 
     function handleCalenderOnChange(selectedDate) {
+        setselected(true)
+        new Date(selectedDate).setDate(new Date(selectedDate).getDate() + 1)
+        console.log(new Date(selectedDate).toLocaleDateString());
         setDate(new Date(selectedDate))
         setLoading(true)
         setTimes(prev => {
             let currentProvidedSlots = providedDate.find(item => new Date(item.date).toLocaleDateString() == new Date(selectedDate).toLocaleDateString());
             if (currentProvidedSlots?.times) {
+                formData.date = new Date(currentProvidedSlots?.date)
+                console.log(formData.date);
                 let jsonCurrentProvidedSlots = JSON.stringify(currentProvidedSlots?.times)
                 jsonCurrentProvidedSlots = JSON.parse(jsonCurrentProvidedSlots)
                 setDate(currentProvidedSlots.date)
@@ -113,6 +126,10 @@ function DoctorSlots() {
                     return item
                 })
             } else {
+                formData.date = new Date(selectedDate)
+                formData.date.setUTCHours(0, 0, 0, 0);
+
+                formData.date.setDate(formData.date.getDate() + 1)
                 setLoading(false)
                 return slotTimes.filter(item => {
                     item.doctor = doctor
@@ -126,6 +143,7 @@ function DoctorSlots() {
         setTimes(prev => {
             let currentProvidedSlots = providedDate.find(item => new Date(item.date).toLocaleDateString() == new Date(date).toLocaleDateString());
             if (currentProvidedSlots?.times) {
+                formData.date = new Date(currentProvidedSlots?.date)
                 let jsonCurrentProvidedSlots = JSON.stringify(currentProvidedSlots?.times)
                 jsonCurrentProvidedSlots = JSON.parse(jsonCurrentProvidedSlots)
                 setDate(currentProvidedSlots.date)
@@ -137,6 +155,10 @@ function DoctorSlots() {
                     return item
                 })
             } else {
+                formData.date = new Date(date)
+                formData.date.setUTCHours(0, 0, 0, 0);
+
+                formData.date.setDate(formData?.date.getDate() + 1)
                 setLoading(false)
                 return slotTimes.filter(item => {
                     item.doctor = doctor
@@ -153,16 +175,18 @@ function DoctorSlots() {
             }
             return time
         })
-        formData.date = date
 
+        let newdate = new Date(formData.date)
+
+        formData.date = newdate
+
+        console.log(newdate);
         postRequest('/doctor/add-slots', formData).then(() => {
             getRequest('/doctor/get-slots').then(response => {
                 swal("Slots Added");
                 setProvidedDate(response.slots);
             })
         })
-
-        console.log(times);
     }
 
     function handleRemove() {
@@ -177,7 +201,7 @@ function DoctorSlots() {
     return (
         <div className='doctor-slots-page'>
             <div className='calender-container'>
-                <Calendar value={date} onChange={(selectedDate) => handleCalenderOnChange(selectedDate)} className='calender' minDate={new Date()} maxDate={maxDay} />
+                <Calendar value={date} onChange={(selectedDate) => handleCalenderOnChange(selectedDate)} className={`calender ${!selected && 'auto-selected'}`} minDate={new Date(new Date().setDate(new Date().getDate()-1))} maxDate={maxDay} />
                 <div className="btns">
                     <button onClick={handleSubmit} type='button'>Submit Slots</button>
                     <button onClick={handleReset} type='button'>Reset All</button>
@@ -188,7 +212,7 @@ function DoctorSlots() {
                 <h1>Available Time Slots</h1>
                 <div className="times">
                     {loading ? 'loading' :
-                        times.map(time => <div key={time.time} onClick={() => handleClick(time.time)} className={`time ${time.selected ? time.doctor == doctor ? 'selected' : 'not-selected' : 'select'} `}>{time.time}</div>)
+                        times.map(time => <div key={time.time} onClick={() => handleClick(time.time)} className={`time ${time.selected ? time.doctor == doctor ? 'selected' : 'not-selected' : 'select'} ${time.booked ? 'booked' : ''} `}>{time.time}</div>)
                     }
                 </div>
             </div>

@@ -1,0 +1,71 @@
+.admin-edit-doctor {
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    form {
+        width: 60%;
+        box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.116);
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        border-radius: 10px;
+
+        .header {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 2rem;
+            img {
+                background-color: rgba(102, 51, 153, 0.089);
+                padding: 0.5rem;
+                width: 10rem;
+                border-radius: 50%;
+            }
+            h2 {
+                font-size: xx-large;
+                margin: 0.5rem 1rem;
+            }
+        }
+
+        &>input {
+            margin: 0.5rem 1rem;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            color: white;
+            border-radius: 20px;
+            padding: 0.5rem;
+            background: linear-gradient(68.08deg, #9083D5 9.64%, #807593 92.49%);
+            font-weight: 600;
+        }
+
+        .form-group {
+            display: flex;
+
+            .form-control {
+                width: 100%;
+                margin: 1rem;
+                display: flex;
+                flex-direction: column;
+
+                label {
+                    font-size: 1.5rem;
+                    text-transform: capitalize;
+                    margin: 0.5rem 0;
+                    color: rgb(56, 56, 56);
+                }
+
+                input {
+                    padding: 0.5rem 1rem;
+                    font-size: 1.5rem;
+                    border-radius: 20px;
+                    outline: none;
+                    border: 1px solid gray;
+                    color: rgb(48, 48, 48);
+                }
+            }
+        }
+    }
+}

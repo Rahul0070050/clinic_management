@@ -121,8 +121,8 @@ function Login() {
             <input type={showPassword ? "text" : "password"} id='confirm-password' onChange={handleOnchange} name="confirm_password" />
           </div>
           <div className="form-control">
-            <Link to="/signup">I don't have an account</Link>
             <input type="button" name="button" onClick={handleSubmit} value="Sign In" />
+            <div></div>
           </div>
         </form>
       </div>

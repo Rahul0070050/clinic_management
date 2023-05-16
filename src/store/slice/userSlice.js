@@ -27,7 +27,6 @@ const userSlice = createSlice({
             state.mobile = payload.mobile
             state.DOB = payload.dateOfBirth
             state.login = true
-            console.log(payload);
         },
         setUser: (state, payload) => {
             state.userName = payload.payload.username;

@@ -21,6 +21,11 @@ import DoctorSlots from './pages/doctor/slots'
 import ClientSlotsBooking from './pages/client/Slots'
 import AllPatientsList from './pages/admin/Patients'
 import AllUser from './pages/admin/users'
+import Appointments from './pages/doctor/appointments'
+import EditDoctor from './pages/admin/editDoctor'
+import ViewAppointmentDetails from './pages/doctor/viewAppointmentDetails'
+import Patients from './pages/doctor/patients'
+import PatientProfile from './pages/doctor/patientProfile'
 const routes = createBrowserRouter([
   {
     path: '/',
@@ -51,6 +56,48 @@ const routes = createBrowserRouter([
   {
     path: '/doctor/login',
     element: <DoctorLogin />
+  },
+  {
+    path: '/doctor/home',
+    element: <>
+      <DoctorNavBar />
+      <DoctorHome />
+    </>
+  },
+  {
+    path: '/doctor/slots',
+    element: <>
+      <DoctorNavBar />
+      <DoctorSlots />
+    </>
+  },
+  {
+    path: '/doctor/appointments',
+    element: <>
+      <DoctorNavBar />
+      <Appointments />
+    </>
+  },
+  {
+    path: '/doctor/patients',
+    element: <>
+      <DoctorNavBar />
+      <Patients />
+    </>
+  },
+  {
+    path: '/doctor/appointments/view-details',
+    element: <>
+      <DoctorNavBar />
+      <ViewAppointmentDetails />
+    </>
+  },
+  {
+    path: '/doctor/patients/view-info',
+    element: <>
+      <DoctorNavBar />
+      <PatientProfile />
+    </>
   },
   {
     path: '/admin/login',
@@ -92,17 +139,10 @@ const routes = createBrowserRouter([
     </>
   },
   {
-    path: '/doctor/home',
+    path: '/admin/doctors/editDoctor',
     element: <>
-      <DoctorNavBar />
-      <DoctorHome />
-    </>
-  },
-  {
-    path: '/doctor/slots',
-    element: <>
-      <DoctorNavBar />
-      <DoctorSlots />
+      <AdminNavBar />
+      <EditDoctor />
     </>
   }
 ])

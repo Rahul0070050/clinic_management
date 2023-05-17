@@ -16,6 +16,26 @@ function AllUser() {
             setUsers(response.users);
         })
     }, [])
+
+    function deleteUserHandler(id) {
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if(willDelete) {
+                getRequest(`/admin/delete-user/${id}`).then(res => {
+                    if(res.ok) {
+                        setUsers(prev => {
+                            return prev.filter(item => item._id != id)
+                        })
+                    }
+                })
+            }
+        });
+    }
     return (
         <div className='admin-all-user-list'>
             <div className="all-patients">
@@ -44,21 +64,13 @@ function AllUser() {
                                         <div className="table-data">{mobile}</div>
                                         <div className="table-data">
                                             <span>
-                                                <img src={editIcon} alt="" />
-                                                <img src={deleteIcon} alt="" />
+                                                {/* <img src={editIcon} alt="" /> */}
+                                                <img onClick={() => deleteUserHandler(id)} src={deleteIcon} alt="" />
                                             </span>
                                         </div>
                                     </div>
                                 })}
                             </div>
-                        </div>
-                        <div className="buttons">
-                            <button>&lt;</button>
-                            <span>1</span>
-                            <span>2</span>
-                            <span>3</span>
-                            <span>4</span>
-                            <button>&gt;</button>
                         </div>
                     </div>
                 </div>

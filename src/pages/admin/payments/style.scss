@@ -7,8 +7,8 @@ $color-alpha: #1772FF;
 $color-form-highlight: #EEEEEE;
 
 
-.admin-all-user-list {
-    .all-patients {
+.admin-all-payments-list {
+    .all-payments {
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -27,14 +27,6 @@ $color-form-highlight: #EEEEEE;
             margin: 1rem 0;
             padding: 0 0 1rem 0;
 
-            .table-content {
-                height: 70vh;
-                overflow: auto;
-                
-                &::-webkit-scrollbar {
-                    display: none;
-                }
-            }
             .buttons {
                 display: flex;
                 align-items: center;
@@ -83,7 +75,6 @@ $color-form-highlight: #EEEEEE;
         }
 
         .table-data {
-            font-size: 1.2rem;
             span {
                 img {
                     margin: 0 1rem;

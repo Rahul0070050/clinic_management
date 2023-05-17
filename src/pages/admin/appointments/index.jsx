@@ -26,7 +26,8 @@ function Appointments() {
 
 
     function getAppointments(date = new Date()) {
-        getRequest(`/doctor/get-appointments`).then(data => {
+        console.log(date);
+        getRequest(`/admin/get-appointments`).then(data => {
             console.log(data);
             setAppointments(() => {
                 return data.sort(function (a, b) {
@@ -40,9 +41,10 @@ function Appointments() {
         setFilter(status)
     }
 
-    function onCancelHandler(id,i) {
-        getRequest(`/doctor/cancel-appointment/${id}`).then(res => {
-            if(res.ok) {
+    function onCancelHandler(id, i) {
+        console.log(id);
+        getRequest(`/admin/cancel-appointment/${id}`).then(res => {
+            if (res.ok) {
                 setAppointments(prev => {
                     return [...prev, prev[i].status = "canceled"]
                 })
@@ -53,15 +55,10 @@ function Appointments() {
     console.log(appointments);
 
     return (
-        <div className='doctor-appointments'>
+        <div className='admin-appointments'>
             <div className="patients">
                 <div>
                     <h2>Appointments</h2>
-                    <select name="" id="" onChange={(e) => sortAppointmentsByStatus(e.target.value)}>
-                        <option value="new">new</option>
-                        <option value="finished">finished</option>
-                        <option value="canceled">canceled</option>
-                    </select>
                 </div>
                 <div className="container">
                     <div className="table">
@@ -90,10 +87,7 @@ function Appointments() {
                                     <div className="table-data">{item.age}</div>
                                     <div className="table-data">{item.dob}</div>
                                     <div className="table-data">
-                                        <span><div className='cancel-button' onClick={() => item.status == "new" ? onCancelHandler(item._id,i) : null}>{item.status == "new" ? 'cancel' : item.status}</div></span>
-                                    </div>
-                                    <div className="table-data">
-                                        <span>{item.status != "new" ? <div></div> : <div onClick={() => navigate('/doctor/appointments/view-details', { state: { id: item._id } })} className='view-button'>view</div>}</span>
+                                        <span><div className='cancel-button' onClick={() => item.status == "new" ? onCancelHandler(item._id, i) : null}>{item.status == "new" ? 'cancel' : item.status}</div></span>
                                     </div>
                                 </div>
                             }

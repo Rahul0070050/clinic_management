@@ -50,11 +50,10 @@ function AdminNavBar() {
           <li><NavLink to={'/admin/dashboard'}>Dashboard</NavLink></li>
           <li><NavLink to={'/admin/appointments'}>Appointments</NavLink></li>
           <li><NavLink to={'/admin/doctors'}>Doctors</NavLink></li>
-          <li><NavLink to={'/admin/admin/departments'}>Departments</NavLink></li>
+          <li><NavLink to={'/admin/departments'}>Departments</NavLink></li>
           <li><NavLink to={'/admin/patients'}>Patients</NavLink></li>
           <li><NavLink to={'/admin/users'}>users</NavLink></li>
           <li><NavLink to={'/admin/payments'}>Payments</NavLink></li>
-          <li><NavLink to={'/admin/service-page'}>Service page</NavLink></li>
           <li><NavLink to={'/admin/help'}>Help</NavLink></li>
         </ul>
       </div>

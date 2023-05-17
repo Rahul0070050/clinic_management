@@ -40,7 +40,7 @@ export default function useFetch(method) {
     }
 
     return function fetchData(url, data = {}) {
-        
+        console.log(data);
         if (!URL.endsWith(url))
             URL = BASEURL.concat(url);
 

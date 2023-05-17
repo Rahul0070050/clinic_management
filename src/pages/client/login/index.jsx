@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { userLogin } from '../../../store/slice/userSlice';
 
 import './style.scss';
+// import { recaptchaVerifier } from '../../../firebase/otp_login';
 
 function Login() {
   const [userData, setUserData] = useState({ email: "", password: "", confirm_password: "" });
@@ -30,9 +31,12 @@ function Login() {
     })
   }
 
+  console.log(import.meta.VITE_FIREBASE_KEY);
+
   function handleSubmit(e) {
     e.preventDefault();
-
+    // recaptchaVerifier();
+    return
     if (userData.email == "" || userData.password == "" || userData.confirm_password == "") {
       for (const key in userData) {
         if (userData[key] == "") {

@@ -18,8 +18,9 @@ $color-form-highlight: #EEEEEE;
             font-size: xx-large;
         }
     }
+
     .table {
-        width: 80rem;
+        width: 110rem;
         border: 1px solid $color-form-highlight;
     }
 
@@ -32,6 +33,7 @@ $color-form-highlight: #EEEEEE;
 
     .table-row {
         display: flex;
+        align-items: center;
         width: 100%;
         padding: ($half-spacing-unit * 1.5) 0;
 
@@ -42,8 +44,12 @@ $color-form-highlight: #EEEEEE;
 
     .table-data {
         span {
-            img {
-                margin: 0 1rem;
+            .view-appointment {
+                padding: 0.3rem 0.5rem;
+                width: 5rem;
+                border-radius: 20px;
+                color: white;
+                background-color: rebeccapurple;
                 cursor: pointer;
             }
         }
@@ -131,19 +137,6 @@ $color-form-highlight: #EEEEEE;
                         // justify-content: space-between;
                     }
 
-                    .action {
-                        display: flex;
-                        align-items: center;
-
-                        a {
-                            padding: 0.3rem 1.2rem;
-                            color: white;
-                            text-decoration: none;
-                            cursor: pointer;
-                            background: linear-gradient(68.08deg, #9083D5 9.64%, #807593 92.49%);
-                            border-radius: 10px;
-                        }
-                    }
                 }
             }
         }

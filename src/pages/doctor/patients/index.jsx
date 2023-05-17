@@ -44,7 +44,7 @@ function Patients() {
 
     return (
         <div className='patients'>
-            <div className="doctors-list">
+            <div className="patients-list">
                 <div className="table">
                     <div className="table-header">
                         <div className="header__item"><a id="wins" className="filter__link filter__link--number" href="#">#</a></div>

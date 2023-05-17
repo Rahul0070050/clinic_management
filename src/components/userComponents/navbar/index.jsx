@@ -42,13 +42,13 @@ function UserNavBar() {
           <NavLink to="/appointment">Appointment</NavLink>
         </li>}
         <li>
-          <NavLink to="/services">Services</NavLink>
-        </li>
-        <li>
           <NavLink to="/about-us">About US</NavLink>
         </li>
         <li>
           <NavLink to="/contact-us">Contact US</NavLink>
+        </li>
+        <li>
+          <NavLink to="/profile">Profile</NavLink>
         </li>
         <li>
           {userToken ?

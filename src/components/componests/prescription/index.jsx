@@ -20,7 +20,6 @@ function Prescription({ prescriptions }) {
                         <h2>{item.night}</h2>
                     </div>
                 })}
-                <span>more</span>
             </div>
         </div>
     )

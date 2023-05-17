@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
 
-import useFetch from '../../../hooks/useFetch';
 import './style.scss'
 import Prescription from '../../../components/componests/prescription';
+import useFetch from '../../../hooks/useFetch';
 
 const getRequest = useFetch("GET")
-function PatientProfile() {
-    const location = useLocation();
-    const [patient, setPatient] = useState({})
+
+function UserProfile() {
+    const [user, setUser] = useState({})
+    const [history, setHistory] = useState([])
     useEffect(() => {
-        const { id } = location.state
-        console.log(id);
-        getRequest(`/doctor/get-patient-info/${location.state.id}`).then(res => {
-            setPatient(res.patient)
+        getRequest(`/user/get-profile`).then(res => {
+            setUser(res.user)
+            console.log(res.history);
+            setHistory(res.history)
         })
     }, [])
-
     return (
-        <div className='patient-Profile'>
-            <div className="patient-info">
-                <h2 className='patient-info-header'>user info</h2>
+        <div className='user-Profile'>
+            <div className="user-info">
+                <h2 className='user-info-header'>user info</h2>
                 <div className="info">
                     <div className="keys">
                         <span>name</span>
@@ -28,26 +27,22 @@ function PatientProfile() {
                         <span>mobile</span>
                         <span>gender</span>
                         <span>dob</span>
-                        <span>age</span>
-                        <span>address</span>
                     </div>
                     <div className="values">
-                        <span>{patient?.firstName + " " + patient?.lastName}</span>
-                        <span>{patient?.email}</span>
-                        <span>{patient?.mobile}</span>
-                        <span>{patient?.gender}</span>
-                        <span>{patient?.dob}</span>
-                        <span>{patient?.age}</span>
-                        <span>{patient?.address}</span>
+                        <span>{user?.firstName + " " + user?.lastName}</span>
+                        <span>{user?.email}</span>
+                        <span>{user?.mobile}</span>
+                        <span>{user?.gender}</span>
+                        <span>{user?.dateOfBirth}</span>
                     </div>
                 </div>
             </div>
-            <div className="patient-history">
+            <div className="user-history">
                 <div className='header'>
                     <h1>History</h1>
                 </div>
                 <div className="container">
-                    {patient?.history?.map(item => {
+                    {history ? history?.map(item => {
                         return <div className="history">
                             <div className="info">
                                 <div className="keys">
@@ -55,7 +50,7 @@ function PatientProfile() {
                                     <span>time</span>
                                 </div>
                                 <div className="values">
-                                    <span>{String(item.date).slice(0,10).replace("-","/").replace("-","/")}</span>
+                                    <span>{new Date(item.date).toLocaleDateString()}</span>
                                     <span>{item.time}</span>
                                 </div>
                             </div>
@@ -68,11 +63,14 @@ function PatientProfile() {
                                 </div>
                             </div>
                         </div>
-                    })}
+                    })
+                        :
+                        <div className='no-history-available'>No History</div>
+                    }
                 </div>
             </div>
         </div>
     )
 }
 
-export default PatientProfile
+export default UserProfile

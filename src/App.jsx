@@ -31,6 +31,7 @@ import ContactUs from './pages/client/contactUs'
 import AdminDepartments from './pages/admin/departments'
 import Payments from './pages/admin/payments'
 import UserProfile from './pages/client/profile'
+import ForgotPassword from './pages/client/forgotPassword'
 const routes = createBrowserRouter([
   {
     path: '/',
@@ -42,12 +43,21 @@ const routes = createBrowserRouter([
   {
     path: "/login",
     element: <>
+      <UserNavBar />
       <Login />
+    </>
+  },
+  {
+    path: "/forgot-password",
+    element: <>
+      <UserNavBar />
+      <ForgotPassword />
     </>
   },
   {
     path: "/signup",
     element: <>
+      <UserNavBar />
       <Signup />
     </>
   },

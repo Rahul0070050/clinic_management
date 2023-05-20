@@ -1,18 +1,42 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import ReactPhoneNumber from 'react-phone-number-input'
+import { ToastContainer, toast } from 'react-toastify';
 
 
-import openEye from '../../../assets/images/open-eye.png';
-import closedEYe from '../../../assets/images/closed-eye.png';
 import sideImage from '../../../assets/svg/login-page-logo.svg'
 
-import './style.scss'
 import useFetch from '../../../hooks/useFetch';
-import { checkMobileNumberHasAnyCharacter, checkPasswordHasSpecialCharacters, checkStringHasNumbers } from '../../../util/utilFunnctions';
+import { checkMobileNumberHasAnyCharacter, checkPasswordHasSpecialCharacters, checkStringHasNumbers, checkStringHasSpecialCharactersOrNumbers } from '../../../util/utilFunnctions';
+import OtpVerification from '../../../components/componests/otpVarification';
+import { auth } from '../../../firebase/config';
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+
+import 'react-toastify/dist/ReactToastify.css';
+import './style.scss'
 
 function Signup() {
+    let recaptchaVerifier = useRef(null);
+    let confirmationResult = useRef(null);
+
+    var dtToday = new Date();
+
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+
+    if (month < 10)
+        month = '0' + month.toString();
+    if (day < 10)
+        day = '0' + day.toString();
+
+    var maxDate = year + '-' + month + '-' + day;
+
     const postRequest = useFetch("POST");
     const navigate = useNavigate();
+    const [open, setOpen] = useState(false)
+    const [phoneVerified, setPhoneVerified] = useState(false)
+    const [otp, setOtp] = useState("")
 
     const [userData, setUserData] = useState({
         firstName: "",
@@ -37,7 +61,6 @@ function Signup() {
     const [showPassword, setShowPassword] = useState(false);
 
     function handleOnchange(e) {
-        console.log(e.target);
         setUserData(prev => {
             return {
                 ...prev,
@@ -46,10 +69,8 @@ function Signup() {
         })
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
-
-        console.log(userData);
 
         if (userData.firstName == "" ||
             userData.lastName == "" ||
@@ -62,7 +83,7 @@ function Signup() {
             for (const key in userData) {
                 if (userData[key] == "") {
                     setUserDataErr(prev => {
-                        let message = "please provide " + key
+                        let message = " please provide"
                         return {
                             ...prev,
                             [key]: message
@@ -81,62 +102,140 @@ function Signup() {
             return;
         } else {
 
-            let errorFlag = false;
-            for (const key in userData) {
-                let message = ""
-                if ((key == "firstName" || key == "lastName") && checkStringHasNumbers(userData[key])) {
-                    errorFlag = true
-                    message = key + " doesn't include numbers"
-                }
-                if (key == "password" && userData[key].length < 8) {
-                    errorFlag = true
-                    message = "password should have at lest 8 characters"
-                }
+            if (userData.password.length < 8) {
                 setUserDataErr(prev => {
                     return {
                         ...prev,
-                        [key]: message
+                        password: " should have at lest 8 characters"
+                    }
+                })
+                return
+            } else {
+                setUserDataErr(prev => {
+                    return {
+                        ...prev,
+                        password: ""
                     }
                 })
             }
 
-            if (errorFlag) {
-                return
+            if (!checkPasswordHasSpecialCharacters(userData.password)) {
+                setUserDataErr(prev => {
+                    return {
+                        ...prev,
+                        password: "please include special characters"
+                    }
+                })
+                return;
+            } else {
+                setUserDataErr(prev => {
+                    return {
+                        ...prev,
+                        password: ""
+                    }
+                })
+            }
+
+            if (checkStringHasSpecialCharactersOrNumbers(userData.firstName)) {
+                setUserDataErr(prev => {
+                    return {
+                        ...prev,
+                        firstName: " don't allow special characters or number"
+                    }
+                })
+                return;
+            } else {
+                setUserDataErr(prev => {
+                    return {
+                        ...prev,
+                        firstName: ""
+                    }
+                })
+            }
+            if (checkStringHasSpecialCharactersOrNumbers(userData.lastName)) {
+                setUserDataErr(prev => {
+                    return {
+                        ...prev,
+                        lastName: " don't allow special characters or number"
+                    }
+                })
+                return;
+            } else {
+                setUserDataErr(prev => {
+                    return {
+                        ...prev,
+                        lastName: ""
+                    }
+                })
+            }
+
+            if (userData.password != userData.confirmPassword) {
+                setUserDataErr(prev => {
+                    return {
+                        ...prev,
+                        confirmPassword: " is not matching"
+                    }
+                })
+                return;
+            } else {
+                setUserDataErr(prev => {
+                    return {
+                        ...prev,
+                        confirmPassword: ""
+                    }
+                })
+            }
+
+            for (const key in userData) {
+                setUserDataErr(prev => {
+                    return {
+                        ...prev,
+                        [key]: ""
+                    }
+                })
             }
         }
 
-        if (!checkPasswordHasSpecialCharacters(userData.password)) {
-            setUserDataErr(prev => {
-                return {
-                    ...prev,
-                    password: "please include special characters"
-                }
-            })
-            return;
+        if (!recaptchaVerifier.current) {
+
+            try {
+                recaptchaVerifier.current = await new RecaptchaVerifier('recaptcha-container', {}, auth);
+            } catch (error) {
+                console.log(error);
+            }
         }
 
-        if (userData.password != userData.confirmPassword) {
-            setUserDataErr(prev => {
-                return {
-                    ...prev,
-                    confirmPassword: "password is not matching"
-                }
-            })
-            return;
-        }
-
-        if (!checkMobileNumberHasAnyCharacter(userData.mobile)) {
-            setUserDataErr(prev => {
-                return {
-                    ...prev,
-                    mobile: "mobile number is invalid"
-                }
-            })
-            return;
+        if (!confirmationResult.current) {
+            try {
+                confirmationResult.current = await signInWithPhoneNumber(auth, userData.mobile, recaptchaVerifier.current)
+                console.log(confirmationResult.current);
+                toast('otp sent')
+                setOpen(true)
+            } catch (error) {
+                console.log(error);
+            }
         }
 
 
+    }
+    function verifyOtp() {
+        try {
+            confirmationResult.current.confirm(otp).then(async res => {
+                toast('mobile is number verified')
+                submitForm()
+                setOpen(false)
+                setPhoneVerified(true)
+            }).catch((err) => {
+                setOtp("")
+                toast("otp is invalid")
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
+    function submitForm() {
+        console.log('hi');
         try {
             postRequest("/user/signup", userData).then(res => {
                 console.log(res);
@@ -156,8 +255,12 @@ function Signup() {
         }
     }
 
+
     return (
         <div className="user-signup">
+            <ToastContainer />
+            {open && <div className="otp-container"></div>}
+            {open && <OtpVerification verifyOtp={verifyOtp} otp={otp} setOtp={setOtp} close={setOpen} />}
             <div className="info">
                 <div className="text">
                     <h1>Sign Up</h1>
@@ -187,15 +290,25 @@ function Signup() {
                         <label htmlFor="email">Email {userDataErr.email && <span>* {userDataErr.email}</span>}</label>
                         <input type="text" onChange={handleOnchange} name="email" id="email" />
                     </div>
-                    <div className="form-control">
+                    <div className="form-control mobile">
                         <label htmlFor="mobile">Mobile {userDataErr.mobile && <span>* {userDataErr.mobile}</span>}</label>
-                        <input type="text" onChange={handleOnchange} name="mobile" id="mobile" />
+                        {/* <input type="text" onChange={handleOnchange} name="mobile" id="mobile" /> */}
+                        <ReactPhoneNumber country="US"
+                            value={userData.mobile}
+                            onChange={(e) => {
+                                setUserData(prev => {
+                                    return {
+                                        ...prev,
+                                        mobile: e
+                                    }
+                                })
+                            }} />
                     </div>
                 </div>
                 <div className="form-group">
                     <div className="form-control">
                         <label htmlFor="date-of-birth">Date Of Birth {userDataErr.dateOfBirth && <span>* {userDataErr.dateOfBirth}</span>}</label>
-                        <input type="date" onChange={handleOnchange} name="dateOfBirth" id="date-of-birth" />
+                        <input type="date" onChange={handleOnchange} name="dateOfBirth" max={maxDate} id="date-of-birth" />
                     </div>
                     <div className="form-control">
                         <label htmlFor="gender">Gender {userDataErr.gender && <span>* {userDataErr.gender}</span>}</label>
@@ -217,7 +330,9 @@ function Signup() {
                         <input type="password" onChange={handleOnchange} name="confirmPassword" id="confirm-password" />
                     </div>
                 </div>
-                <input type="button" onClick={handleSubmit} value="submit" id="" />
+                <div id="recaptcha-container"></div>
+                {phoneVerified ? <input type="button" onClick={submitForm} value="Submit" id="" /> :
+                <input type="button" onClick={handleSubmit} value="Verify OTP" id="" />}
             </form>
         </div>
     )

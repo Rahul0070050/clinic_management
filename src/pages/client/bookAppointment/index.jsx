@@ -5,6 +5,21 @@ import { checkEmail, checkMobileNumberHasAnyCharacter, checkStringHasNumbers } f
 import './style.scss';
 
 function BookAppointments() {
+
+  var dtToday = new Date();
+
+  var month = dtToday.getMonth() + 1;
+  var day = dtToday.getDate();
+  var year = dtToday.getFullYear();
+
+  if(month < 10)
+      month = '0' + month.toString();
+  if(day < 10)
+      day = '0' + day.toString();
+
+  var maxDate = year + '-' + month + '-' + day;
+
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -74,7 +89,6 @@ function BookAppointments() {
           })
         }
       }
-      console.log(formDataErr);
 
       return;
     } else {
@@ -150,7 +164,7 @@ function BookAppointments() {
           </div>
           <div className="form-control">
             <label htmlFor="dob">{formDataErr.dob && <span>{formDataErr.dob}*</span>}DOB</label>
-            <input type="text" id='dob' name='dob' onChange={onchangeHandler} value={formData.dob} />
+            <input type="text" id='dob' name='dob' max={maxDate} onChange={onchangeHandler} value={formData.dob} />
           </div>
         </div>
         <div className="form-group">

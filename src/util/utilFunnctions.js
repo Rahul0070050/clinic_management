@@ -19,6 +19,11 @@ export function checkEmail(email) {
     return EMAILREGEX.test(email)
 }
 
+export function checkStringHasSpecialCharactersOrNumbers(str) {
+    const regex = /[!@#$%^&*(),.?":{}|<>0-9]/;
+    return regex.test(str)
+}
+
 export function isLogedIn() {
     return localStorage.getItem(logedIn) ? true : false;
 }

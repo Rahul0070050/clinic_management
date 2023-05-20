@@ -7,6 +7,7 @@ const getRequest = useFetch('GET');
 const postRequest = useFetch('POST');
 
 import './style.scss'
+import { checkMobileNumberHasAnyCharacter, checkPasswordHasSpecialCharacters, checkStringHasSpecialCharactersOrNumbers } from '../../../util/utilFunnctions';
 
 function ClientSlotsBooking() {
     const today = new Date()
@@ -21,8 +22,19 @@ function ClientSlotsBooking() {
     const [selectedGlobalDate, setSelectedGlobalDate] = useState('')
     const [paymentSuccess, setPaymentSuccess] = useState(false)
 
+    var month = today.getMonth() + 1;
+    var day = today.getDate();
+    var year = today.getFullYear();
+
+    if (month < 10)
+        month = '0' + month.toString();
+    if (day < 10)
+        day = '0' + day.toString();
+
+    var maxDate = year + '-' + month + '-' + day;
     const [dates, setDate] = useState(() => {
         let today = new Date()
+
         let dates = []
         for (let i = 0; i < 7; i++) {
             let weekday = today.toLocaleString("default", { weekday: "short" })
@@ -177,6 +189,7 @@ function ClientSlotsBooking() {
 
         })
     }
+
     function paymentHandler() {
         if (!formValidation()) {
             var options = {
@@ -217,6 +230,10 @@ function ClientSlotsBooking() {
                 return doctors.filter(doctor => doctor.department == e.target.value)
             })
         }
+        if (e.target.name == "age" && (Number(e.target.value) > 99 || Number(e.target.value) <= 0)) {
+            return
+        }
+        console.log(e.target.value);
         setFormData(prev => {
             return {
                 ...prev,
@@ -246,14 +263,88 @@ function ClientSlotsBooking() {
             }
             return true
         } else {
+            if (checkPasswordHasSpecialCharacters(formData.mobile)) {
+                formDataError(prev => {
+                    return {
+                        ...prev,
+                        mobile: " number is invalid"
+                    }
+                })
+                return true;
+            } else {
+                setFormDataError(prev => {
+                    return {
+                        ...prev,
+                        mobile: ""
+                    }
+                })
+            }
+
+            if (!checkMobileNumberHasAnyCharacter(formData.mobile)) {
+                setFormDataError(prev => {
+                    return {
+                        ...prev,
+                        mobile: " number is invalid"
+                    }
+                })
+                return true;
+            } else {
+                setFormDataError(prev => {
+                    return {
+                        ...prev,
+                        mobile: ""
+                    }
+                })
+            }
+
+            if (checkStringHasSpecialCharactersOrNumbers(formData.firstName)) {
+                setFormDataError(prev => {
+                    return {
+                        ...prev,
+                        firstName: " don't allow special characters or number"
+                    }
+                })
+                return true;
+            } else {
+                setFormDataError(prev => {
+                    return {
+                        ...prev,
+                        firstName: ""
+                    }
+                })
+            }
+            if (checkStringHasSpecialCharactersOrNumbers(formData.lastName)) {
+                setFormDataError(prev => {
+                    return {
+                        ...prev,
+                        lastName: " don't allow special characters or number"
+                    }
+                })
+                return true;
+            } else {
+                setFormDataError(prev => {
+                    return {
+                        ...prev,
+                        lastName: ""
+                    }
+                })
+            }
+
+            for (const key in formData) {
+                setFormDataError(prev => {
+                    return {
+                        ...prev,
+                        [key]: ""
+                    }
+                })
+            }
             return false
         }
     }
 
     function submitHandler() {
-        console.log(formData)
         if (formData.firstName == "" || formData.lastName == "" || formData.email == "" || formData.mobile == "" || formData.gender == "" || formData.dob == "" || formData.appointmentTime == "" || formData.appointmentDate == "" || formData.doctorName == "" || formData.department == "" || formData.age == "" || formData.address == "") {
-            formValidation()
+            if(!formValidation()) return
         } else {
             for (const key in formData) {
                 setFormDataError((prev) => {
@@ -263,12 +354,13 @@ function ClientSlotsBooking() {
                     }
                 })
             }
+            return
             postRequest('/user/book-appointment', formData).then(res => {
                 console.log(res);
                 if (res.ok) {
                     setSlots(prev => {
                         return prev.filter(slot => {
-                            if(slot.time == formData.appointmentTime) {
+                            if (slot.time == formData.appointmentTime) {
                                 console.log(slot);
                                 slot.booked = true
                             }
@@ -337,15 +429,15 @@ function ClientSlotsBooking() {
                     <div className="form-control">
                         <div className="form-group">
                             <label htmlFor="dob" style={{ color: `${formDataError.dob ? 'red' : 'gray'}` }}>{formDataError.dob ? '*' : ''} dob</label>
-                            <input type="date" name="dob" value={formData.dob} onChange={handleOnchange} id="dob" />
+                            <input type="date" name="dob" max={maxDate} value={formData.dob} onChange={handleOnchange} id="dob" />
                         </div>
                         <div className="form-group">
                             <label htmlFor="appointmentTime" style={{ color: `${formDataError.appointmentTime ? 'red' : 'gray'}` }}>{formDataError.appointmentTime ? '*' : ''} appointmentTime</label>
-                            <input type="text" name="appointmentTime" value={formData.appointmentTime} onChange={handleOnchange} id="appointmentTime" />
+                            <input type="text" name="appointmentTime" disabled value={formData.appointmentTime} onChange={handleOnchange} id="appointmentTime" />
                         </div>
                         <div className="form-group">
                             <label htmlFor="appointmentDate" style={{ color: `${formDataError.appointmentDate ? 'red' : 'gray'}` }}>{formDataError.appointmentDate ? '*' : ''} appointmentDate</label>
-                            <input type="text" name="appointmentDate" value={formData?.appointmentDate && formData?.appointmentDate?.toLocaleDateString()} onChange={handleOnchange} id="appointmentDate" />
+                            <input type="text" name="appointmentDate" disabled value={formData?.appointmentDate && formData?.appointmentDate?.toLocaleDateString()} onChange={handleOnchange} id="appointmentDate" />
                         </div>
                     </div>
                     <div className="form-control">
@@ -360,7 +452,7 @@ function ClientSlotsBooking() {
                         </div>
                         <div className="form-group">
                             <label htmlFor="doctorName" style={{ color: `${formDataError.department ? 'red' : 'gray'}` }}>{formDataError.department ? '*' : ''} doctorName</label>
-                            <select name="doctorName" onChange={handleOnchange} id="doctorName">
+                            <select disabled name="doctorName" onChange={handleOnchange} id="doctorName">
                                 <option value={formData.doctorName ? formData.doctorName : ''}>{formData.doctorName ? formData.doctorName : 'select'}</option>
                                 {selectedDoctors.map((doctor, i) => {
                                     return <option key={i} value={doctor.doctor}>{doctor.doctor}</option>
@@ -369,7 +461,7 @@ function ClientSlotsBooking() {
                         </div>
                         <div className="form-group">
                             <label htmlFor="age" style={{ color: `${formDataError.age ? 'red' : 'gray'}` }}>{formDataError.age ? '*' : ''} age</label>
-                            <input type="text" name="age" value={formData.age} onChange={handleOnchange} id="age" />
+                            <input type="number" name="age" min={1} max={100} maxLength={2} value={formData.age} onChange={handleOnchange} id="age" />
                         </div>
                     </div>
                     <div className="form-control">

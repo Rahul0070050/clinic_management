@@ -1,17 +1,19 @@
+import { signInWithPhoneNumber } from 'firebase/auth';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-import useFetch from '../../../hooks/useFetch';
+import { userLogin } from '../../../store/slice/userSlice';
 
 import openEye from '../../../assets/images/open-eye.png';
 import closedEYe from '../../../assets/images/closed-eye.png';
 import sideImage from '../../../assets/svg/login-page-logo.svg'
 
-import { useDispatch } from 'react-redux';
-import { userLogin } from '../../../store/slice/userSlice';
+import useFetch from '../../../hooks/useFetch';
+
+import { otplogin } from '../../../firebase/otp_login';
 
 import './style.scss';
-// import { recaptchaVerifier } from '../../../firebase/otp_login';
 
 function Login() {
   const [userData, setUserData] = useState({ email: "", password: "", confirm_password: "" });
@@ -31,12 +33,17 @@ function Login() {
     })
   }
 
-  console.log(import.meta.VITE_FIREBASE_KEY);
 
   function handleSubmit(e) {
     e.preventDefault();
-    // recaptchaVerifier();
-    return
+
+
+    // signInWithPhoneNumber(auth, "7994233642", recaptchaVerifier)
+    //   .then((confirmationResult) => {
+    //     console.log(confirmationResult);
+    //   }).catch((error) => { });
+    // return
+
     if (userData.email == "" || userData.password == "" || userData.confirm_password == "") {
       for (const key in userData) {
         if (userData[key] == "") {
@@ -118,7 +125,10 @@ function Login() {
           </div>
           <div className="form-control">
             <img src={showPassword ? openEye : closedEYe} onClick={() => setShowPassword(show => !show)} alt="" />
+            <div className="password-label">
             <label htmlFor="password">password {userDataErr.password && <span>*{userDataErr.password}</span>}</label>
+            <Link to="/forgot-password">forgot password</Link>
+            </div>
             <input type={showPassword ? "text" : "password"} name="password" onChange={handleOnchange} id='password' />
           </div>
           <div className="form-control">
@@ -126,7 +136,9 @@ function Login() {
             <input type={showPassword ? "text" : "password"} id='password-confirm-password' onChange={handleOnchange} name="confirm_password" />
           </div>
           <div className="form-control">
-            <Link to="/signup">I don't have an account</Link>
+            <div className="btns">
+              <Link to="/signup">I don't have an account</Link>
+            </div>
             <input type="button" name="button" onClick={handleSubmit} value="Sign In" />
           </div>
         </form>

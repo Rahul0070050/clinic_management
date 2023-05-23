@@ -17,20 +17,17 @@ function AdminDoctorsList() {
         })
     }, [])
 
-    function deleteHandler(id) {
-        swal({
-            title: "Are you sure?",
-            text: "Are you sure!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        }).then((willDelete) => {
-            if(willDelete) {
-                setDoctors(prev => {
-                    return prev.filter(doctor => doctor._id != id)
+    function blockDoctor(id) {
+        getRequest(`/admin/block-doctor/${id}`).then(res => {
+            setDoctors(prev => {
+                return prev.filter(doctor => {
+                    if (doctor._id == id) {
+                        doctor.block = !doctor.block;
+                    }
+                    return doctor
                 })
-            }
-        });
+            })
+        })
     }
 
     return (
@@ -50,12 +47,14 @@ function AdminDoctorsList() {
                         <div className="header__item"><a id="losses" className="filter__link filter__link--number" href="#">CTC</a></div>
                         <div className="header__item"><a id="total" className="filter__link filter__link--number" href="#">experience</a></div>
                         <div className="header__item"><a id="total" className="filter__link filter__link--number" href="#">department</a></div>
-                        <div className="header__item"><a id="total" className="filter__link filter__link--number" href="#">actions</a></div>
+                        <div className="header__item">
+                            <a id="total" className="filter__link filter__link--number" href="#">Edit</a>
+                            <a id="total" className="filter__link filter__link--number" href="#">Block</a></div>
                     </div>
                     <div className="table-content">
                         {doctors.map((doctor, i) => (
                             <div className="table-row" key={i}>
-                                <div className="table-data">#2234</div>
+                                <div className="table-data">#{i + 1}</div>
                                 <div className="table-data">{doctor?.username}</div>
                                 <div className="table-data">{doctor?.email}</div>
                                 <div className="table-data">{doctor?.mobile}</div>
@@ -64,13 +63,16 @@ function AdminDoctorsList() {
                                 <div className="table-data">{doctor?.experience}</div>
                                 <div className="table-data">{doctor?.department}</div>
                                 <div className="table-data">
+                                    <img src={editIcon} onClick={() => {
+                                        navigate('/admin/doctors/editDoctor', { state: { doctor: doctor?._id } })
+                                    }} alt="" />
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <span>
-                                        <img src={editIcon} onClick={() => {
-                                            navigate('/admin/doctors/editDoctor', { state: { doctor: doctor?._id } })
-                                        }} alt="" />
-                                        <img src={deleteIcon} alt="" onClick={() => deleteHandler(doctor?._id)} />
+                                        <span onClick={() => blockDoctor(doctor?._id)} className={`${!doctor?.block ? 'switch-off' : ''} switch`}><span className={`${doctor?.block ? 'left' : 'right'}`}></span></span>
                                     </span>
                                 </div>
+                                {/* <div className="table-data">
+                                </div> */}
                             </div>
                         ))}
                     </div>

@@ -8,12 +8,14 @@ import AriaChart from '../../../components/adminComponents/charts/ariaChart'
 
 import './style.scss'
 import useFetch from '../../../hooks/useFetch'
+import StatusCard from '../../../components/adminComponents/StatusCard'
 
 const getRequest = useFetch("GET")
 
 
 function AdminHome() {
   const [appointments, setAppointments] = useState([])
+  const [cardData, setCardData] = useState([])
   useEffect(() => {
     getRequest(`/admin/get-appointments`).then(data => {
       console.log(data);
@@ -23,13 +25,21 @@ function AdminHome() {
         });
       });
     })
+
+    getRequest(`/admin/get-info`).then(data => {
+      setCardData (data)
+    })
   }, [])
 
   return (
     <div className='admin-home-page'>
+      <div className="status">
+        {cardData && cardData.map(item => {
+          return <StatusCard name={item.name} count={item.count} />
+        })}
+      </div>
       <div className="charts">
-        <LineChart />
-        <AriaChart />
+        
       </div>
       <div className="all-patients">
         <div className="patients">

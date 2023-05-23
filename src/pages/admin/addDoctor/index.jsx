@@ -1,20 +1,68 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useFetch from '../../../hooks/useFetch'
 
 import './style.scss'
-import { checkEmail, checkMobileNumberHasAnyCharacter, checkPasswordHasSpecialCharacters } from '../../../util/utilFunnctions'
+import { checkEmail, checkMobileNumberHasAnyCharacter, checkPasswordHasSpecialCharacters, checkStringHasSpecialCharactersOrNumbers } from '../../../util/utilFunnctions'
 function AddDoctor() {
   const [formData, setFormData] = useState({ CTC: "", experience: "", age: "", username: "", password: "", email: "", mobile: "", department: "" })
   const [formDataErr, setFormDataErr] = useState({ CTC: "", experience: "", age: "", username: "", password: "", email: "", mobile: "", department: "" })
-
+  const getRequest = useFetch("GET")
+  const [departments, setDepartments] = useState([])
   const postRequest = useFetch("POST");
-  function onHandleChange(e) {
-    setFormData(prev => {
-      return {
-        ...prev,
-        [e.target.name]: e.target.value
-      }
+
+  useEffect(() => {
+    getRequest('/admin/get-departments').then(res => {
+      setDepartments(res?.departments)
+      setFormData(prev => {
+        return {
+          ...prev,
+          department: res?.departments[0].name
+        }
+      })
     })
+  }, [])
+
+  function onHandleChange(e) {
+    if (e.target.name == "age") {
+      // console.log('from if');
+      console.log(e.target.name, Number(e.target.value));
+      
+      if (Number(e.target.value) <= 60) {
+        setFormData(prev => {
+          return {
+            ...prev,
+            [e.target.name]: e.target.value
+          }
+        })
+      }
+    } else if(e.target.name == "CTC") {
+      if (Number(e.target.value) <= 50) {
+        setFormData(prev => {
+          return {
+            ...prev,
+            [e.target.name]: e.target.value
+          }
+        })
+      }
+    }else if(e.target.name == "experience") {
+      if (Number(e.target.value) <= 50) {
+        setFormData(prev => {
+          return {
+            ...prev,
+            [e.target.name]: e.target.value
+          }
+        })
+      }
+    } else {
+      console.log('from else');
+      console.log(e.target.name);
+      setFormData(prev => {
+        return {
+          ...prev,
+          [e.target.name]: e.target.value
+        }
+      })
+    }
   }
 
   function onSubmitHandler() {
@@ -40,7 +88,7 @@ function AddDoctor() {
       return;
 
     } else {
-      if(!checkEmail(formData.email)) {
+      if (!checkEmail(formData.email)) {
         setFormDataErr(prev => {
           return {
             ...prev,
@@ -56,7 +104,7 @@ function AddDoctor() {
           }
         })
       }
-      if(formData.mobile.length > 10 || formData.mobile.length < 10) {
+      if (formData.mobile.length > 10 || formData.mobile.length < 10) {
         setFormDataErr(prev => {
           return {
             ...prev,
@@ -74,7 +122,7 @@ function AddDoctor() {
         })
       }
 
-      if(!checkPasswordHasSpecialCharacters(formData.password)) {
+      if (!checkPasswordHasSpecialCharacters(formData.password)) {
         setFormDataErr(prev => {
           return {
             ...prev,
@@ -91,7 +139,23 @@ function AddDoctor() {
           }
         })
       }
-      
+      if (checkStringHasSpecialCharactersOrNumbers(formData.username)) {
+        setFormDataErr(prev => {
+          return {
+            ...prev,
+            username: " don't allow special characters or number"
+          }
+        })
+        return;
+      } else {
+        setFormDataErr(prev => {
+          return {
+            ...prev,
+            username: ""
+          }
+        })
+      }
+
       postRequest('/admin/add-doctor', formData).then(res => {
         if (res.ok) {
           location = "/admin/doctors"
@@ -117,44 +181,46 @@ function AddDoctor() {
         <div className="form-group">
           <div className="form-control">
             <label htmlFor="userName">{formDataErr.username && <span>{formDataErr.username}</span>} user name</label>
-            <input onChange={onHandleChange} type="text" name="username" id="userName" />
+            <input value={formData.username} onChange={onHandleChange} type="text" name="username" id="userName" />
           </div>
           <div className="form-control">
             <label htmlFor="password">{formDataErr.password && <span>{formDataErr.password}</span>} password</label>
-            <input onChange={onHandleChange} type="password" name="password" id="password" />
+            <input value={formData.password} onChange={onHandleChange} type="password" name="password" id="password" />
           </div>
         </div>
         <div className="form-group">
           <div className="inner-form-group">
             <div className="form-control">
               <label htmlFor="CTC">{formDataErr.CTC && <span>{formDataErr.CTC}</span>} CTC</label>
-              <input onChange={onHandleChange} type="number" name="CTC" id="CTC" />
+              <input value={formData.CTC} onChange={onHandleChange} type="number" name="CTC" id="CTC" />
             </div>
             <div className="form-control">
               <label htmlFor="experience">{formDataErr.experience && <span>{formDataErr.experience}</span>} experience(in year)</label>
-              <input onChange={onHandleChange} type="text" name="experience" id="experience" />
+              <input value={formData.experience} onChange={onHandleChange} type="text" name="experience" id="experience" />
             </div>
           </div>
           <div className="form-control">
             <label htmlFor="age">{formDataErr.age && <span>{formDataErr.age}</span>} age</label>
-            <input onChange={onHandleChange} type="number" name="age" id="age" />
+            <input value={formData.age} onChange={onHandleChange} type="number" max={60} maxLength={2} name="age" id="age" />
           </div>
         </div>
         <div className="form-group">
           <div className="inner-form-group">
             <div className="form-control">
               <label htmlFor="email">{formDataErr.email && <span>{formDataErr.email}</span>} email</label>
-              <input onChange={onHandleChange} type="text" name="email" id="email" />
+              <input value={formData.email} onChange={onHandleChange} type="text" name="email" id="email" />
             </div>
           </div>
           <div className="inner-form-group">
             <div className="form-control">
               <label htmlFor="mobileNumber">{formDataErr.mobile && <span>{formDataErr.mobile}</span>} mobile</label>
-              <input onChange={onHandleChange} type="number" name="mobile" id="mobileNumber" />
+              <input value={formData.mobile} onChange={onHandleChange} type="number" name="mobile" id="mobileNumber" />
             </div>
             <div className="form-control">
               <label htmlFor="department">{formDataErr.department && <span>{formDataErr.department}</span>} department</label>
-              <input onChange={onHandleChange} type="text" name="department" id="department" />
+              <select  value={formData.department}onChange={onHandleChange} name="department" id="department">
+                {departments && departments.map((item, i) => <option key={i} value={item.name}>{item.name}</option>)}
+              </select>
             </div>
           </div>
         </div>

@@ -22,6 +22,7 @@ function DoctorHome() {
     })
     getRequest('/doctor/get-todays-appointments').then(res => {
       setAppointments(res.result)
+      console.log(res);
     })
   }, [])
 

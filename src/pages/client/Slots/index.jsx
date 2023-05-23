@@ -354,7 +354,7 @@ function ClientSlotsBooking() {
                     }
                 })
             }
-            return
+            console.log(formData);
             postRequest('/user/book-appointment', formData).then(res => {
                 console.log(res);
                 if (res.ok) {

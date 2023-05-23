@@ -21,7 +21,7 @@ function DoctorNavBar() {
         dangerMode: true,
       })
         .then((willDelete) => {
-          if(willDelete) {
+          if (willDelete) {
             localStorage.removeItem('doctor-token')
             window.location = '/doctor/login'
           }
@@ -41,12 +41,15 @@ function DoctorNavBar() {
         {doctorToken && <li>
           <NavLink to="/doctor/slots">Slots</NavLink>
         </li>}
-        {doctorToken && <li>
-          <NavLink to="/doctor/appointments">Appointments</NavLink>
-        </li>}
-        <li>
-          <NavLink to="/doctor/patients">Patients</NavLink>
-        </li>
+        {doctorToken && <>
+          <li>
+            <NavLink to="/doctor/appointments">Appointments</NavLink>
+          </li>
+          <li>
+            <NavLink to="/doctor/Profile">Profile</NavLink>
+          </li>
+        </>
+        }
         <li>
           {doctorToken ?
             <button onClick={logoutHandler}>LogOut</button>

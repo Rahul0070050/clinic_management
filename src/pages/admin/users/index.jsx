@@ -14,28 +14,25 @@ function AllUser() {
     useEffect(() => {
         getRequest('/admin/get-all-users').then(response => {
             setUsers(response.users);
+            console.log(response.users);
         })
     }, [])
 
-    function deleteUserHandler(id) {
-        swal({
-            title: "Are you sure?",
-            text: "Are you sure!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        }).then((willDelete) => {
-            if(willDelete) {
-                getRequest(`/admin/delete-user/${id}`).then(res => {
-                    if(res.ok) {
-                        setUsers(prev => {
-                            return prev.filter(item => item._id != id)
-                        })
-                    }
-                })
+    function blockUser(id) {
+        getRequest(`/admin/block-user/${id}`).then(response => {
+            if (response.ok) {
+                setUsers(prev => {
+                    return prev.filter(item => {
+                        if (item._id == id) {
+                            item.block = !item.block
+                        }
+                        return item
+                    })
+                });
             }
-        });
+        })
     }
+
     return (
         <div className='admin-all-user-list'>
             <div className="all-patients">
@@ -50,11 +47,13 @@ function AllUser() {
                                 <div className="header__item"><a id="draws" className="filter__link filter__link--number" href="#">email</a></div>
                                 <div className="header__item"><a id="losses" className="filter__link filter__link--number" href="#">gender</a></div>
                                 <div className="header__item"><a id="total" className="filter__link filter__link--number" href="#">mobile</a></div>
-                                <div className="header__item"><a id="total" className="filter__link filter__link--number" href="#">Action</a></div>
+                                <div className="header__item"><a id="total" className="filter__link filter__link--number" href="#">Block User</a></div>
                             </div>
                             <div className="table-content">
                                 {users && users.map((user, i) => {
-                                    const { _id: id, firstName, lastName, email, dateOfBirth, gender, mobile, } = user;
+                                    console.log(user);
+                                    const { _id: id, firstName, lastName, email, dateOfBirth, gender, block, mobile, } = user;
+                                    console.log(block);
                                     return <div className="table-row" key={id}>
                                         <div className="table-data"># {i + 1}</div>
                                         <div className="table-data">{firstName + " " + lastName}</div>
@@ -64,8 +63,7 @@ function AllUser() {
                                         <div className="table-data">{mobile}</div>
                                         <div className="table-data">
                                             <span>
-                                                {/* <img src={editIcon} alt="" /> */}
-                                                <img onClick={() => deleteUserHandler(id)} src={deleteIcon} alt="" />
+                                                <span onClick={() => blockUser(id)} className={`${!block ? 'switch-off' : ''} switch`}><span className={`${block ? 'left' : 'right'}`}></span></span>
                                             </span>
                                         </div>
                                     </div>

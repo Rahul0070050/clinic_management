@@ -1,0 +1,30 @@
+.admin-status-card {
+    border: 2px solid rgba(128, 128, 128, 0.387);
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 8rem;
+    width: 22rem;
+    .icon {
+        background-color: lightblue;
+        width: 40%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+            width: 4rem;
+        }
+    }
+    .info {
+        text-transform: capitalize;
+        margin-left: 1rem;
+        width: 60%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+    }
+}

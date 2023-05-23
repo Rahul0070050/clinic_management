@@ -235,7 +235,6 @@ function Signup() {
     }
 
     function submitForm() {
-        console.log('hi');
         try {
             postRequest("/user/signup", userData).then(res => {
                 console.log(res);

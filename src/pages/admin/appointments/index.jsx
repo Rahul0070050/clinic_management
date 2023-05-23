@@ -71,8 +71,6 @@ function Appointments() {
                             <div className="header__item"><a id="losses" className="filter__link filter__link--number" href="#">date</a></div>
                             <div className="header__item"><a id="losses" className="filter__link filter__link--number" href="#">age</a></div>
                             <div className="header__item"><a id="losses" className="filter__link filter__link--number" href="#">dob</a></div>
-                            <div className="header__item"><a id="total" className="filter__link filter__link--number" href="#">Actions</a></div>
-                            <div className="header__item"><a id="total" className="filter__link filter__link--number" href="#"></a></div>
                         </div>
                         <div className="table-content">
                             {appointments.map((item, i) => {
@@ -86,9 +84,6 @@ function Appointments() {
                                     <div className="table-data">{new Date(item.appointmentDate).toLocaleDateString()}</div>
                                     <div className="table-data">{item.age}</div>
                                     <div className="table-data">{item.dob}</div>
-                                    <div className="table-data">
-                                        <span><div className='cancel-button' onClick={() => item.status == "new" ? onCancelHandler(item._id, i) : null}>{item.status == "new" ? 'cancel' : item.status}</div></span>
-                                    </div>
                                 </div>
                             }
                             )}

@@ -1,4 +1,0 @@
-- [ ] client and doctor login
-- [ ] sign-up for client
-- [ ] home page for client
-- [ ] home page for doctor

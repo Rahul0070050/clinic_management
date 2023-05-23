@@ -7,6 +7,11 @@ $color-alpha: #1772FF;
 $color-form-highlight: #EEEEEE;
 
 .admin-home-page {
+    .status {
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+    }
     .charts {
         margin: 2rem;
         display: flex;

@@ -47,9 +47,9 @@ function UserNavBar() {
         <li>
           <NavLink to="/contact-us">Contact US</NavLink>
         </li>
-        <li>
+        {login && <li>
           <NavLink to="/profile">Profile</NavLink>
-        </li>
+        </li>}
         <li>
           {userToken ?
             <button onClick={logoutHandler}>LogOut</button>

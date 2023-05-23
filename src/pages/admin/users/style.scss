@@ -30,11 +30,12 @@ $color-form-highlight: #EEEEEE;
             .table-content {
                 height: 70vh;
                 overflow: auto;
-                
+
                 &::-webkit-scrollbar {
                     display: none;
                 }
             }
+
             .buttons {
                 display: flex;
                 align-items: center;
@@ -42,20 +43,24 @@ $color-form-highlight: #EEEEEE;
                 *:nth-child(1) {
                     margin-right: 2rem;
                 }
+
                 *:nth-child(6) {
                     margin-left: 2rem;
                 }
+
                 button {
                     padding: 0.5rem;
                     font-weight: 900;
                     font-size: xx-large;
                 }
+
                 span {
                     padding: 1rem;
                     margin: 0 0.3rem;
                     border: 1px solid black;
                     font-size: 1.5rem;
                 }
+
                 margin: 1.5rem 0;
             }
         }
@@ -84,11 +89,38 @@ $color-form-highlight: #EEEEEE;
 
         .table-data {
             font-size: 1.2rem;
-            span {
-                img {
-                    margin: 0 1rem;
-                    cursor: pointer;
+
+            .switch {
+                padding: 0.9rem 1.7rem;
+                border-radius: 20px;
+                background-color: #2196F3;
+                display: inline-block;
+                position: relative;
+                transition: all ease-in-out 0.3s;
+                span {
+                    transition: all ease-in-out 0.3s;
+                    position: absolute;
+                    display: block;
+                    background-color: #fff;
+                    padding: 0.6rem;
+                    border-radius: 20px;
                 }
+                .left {
+                    top: 0.28rem;
+                    box-shadow: 0 0 3px 3px #2195f37e;
+                    transform: translateX(0.25rem);
+                }
+                
+                .right {
+                    box-shadow: 0 0 3px 3px #ffffff78;
+                    top: 0.28rem;
+                    transform: translateX(-1.38rem);
+                }
+
+            }
+
+            .switch-off {
+                background-color: #ccc;
             }
         }
 

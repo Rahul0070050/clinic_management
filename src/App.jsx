@@ -4,9 +4,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './pages/client/login'
 import DoctorLogin from './pages/doctor/login'
 import UserHome from './pages/client/home'
-
-// style
-import './App.css'
 import Signup from './pages/client/signup'
 import UserNavBar from './components/userComponents/navbar'
 import AdminLogin from './pages/admin/login'
@@ -32,6 +29,12 @@ import AdminDepartments from './pages/admin/departments'
 import Payments from './pages/admin/payments'
 import UserProfile from './pages/client/profile'
 import ForgotPassword from './pages/client/forgotPassword'
+import Blocked from './pages/Blocked'
+import DoctorProfile from './pages/doctor/profile'
+
+// style
+import './App.css'
+
 const routes = createBrowserRouter([
   {
     path: '/',
@@ -45,6 +48,12 @@ const routes = createBrowserRouter([
     element: <>
       <UserNavBar />
       <Login />
+    </>
+  },
+  {
+    path: "/blocked",
+    element: <>
+      <Blocked />
     </>
   },
   {
@@ -92,6 +101,13 @@ const routes = createBrowserRouter([
   {
     path: '/doctor/login',
     element: <DoctorLogin />
+  },
+  {
+    path: '/doctor/profile',
+    element: <>
+      <DoctorNavBar />
+      <DoctorProfile />
+    </>
   },
   {
     path: '/doctor/home',

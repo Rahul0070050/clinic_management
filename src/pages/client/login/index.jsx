@@ -11,8 +11,6 @@ import sideImage from '../../../assets/svg/login-page-logo.svg'
 
 import useFetch from '../../../hooks/useFetch';
 
-import { otplogin } from '../../../firebase/otp_login';
-
 import './style.scss';
 
 function Login() {
@@ -36,13 +34,6 @@ function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
-
-    // signInWithPhoneNumber(auth, "7994233642", recaptchaVerifier)
-    //   .then((confirmationResult) => {
-    //     console.log(confirmationResult);
-    //   }).catch((error) => { });
-    // return
 
     if (userData.email == "" || userData.password == "" || userData.confirm_password == "") {
       for (const key in userData) {

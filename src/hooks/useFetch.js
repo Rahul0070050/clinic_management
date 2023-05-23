@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 export default function useFetch(method) {
 
@@ -40,7 +41,6 @@ export default function useFetch(method) {
     }
 
     return function fetchData(url, data = {}) {
-        console.log(data);
         if (!URL.endsWith(url))
             URL = BASEURL.concat(url);
 
@@ -61,6 +61,10 @@ export default function useFetch(method) {
                 }).then(res => {
                     resolve(res?.data);
                 }).catch(err => {
+                    if(err?.response?.data?.userBlocked) {
+                        window.location = '/blocked'
+                        return
+                    }
                     if (err?.response?.data?.logedIn === false) {
                         if (window.location.pathname.startsWith('/doctor')) {
                             window.location = '/doctor/login'
@@ -73,7 +77,6 @@ export default function useFetch(method) {
                             return
                         }
                     }
-                    console.log(err?.response?.data);
                     reject(err?.response?.data);
                 })
             } catch (error) {

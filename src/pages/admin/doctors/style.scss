@@ -69,6 +69,37 @@ $color-form-highlight: #EEEEEE;
                     cursor: pointer;
                 }
             }
+
+            .switch {
+                padding: 0.9rem 1.7rem;
+                border-radius: 20px;
+                background-color: #2196F3;
+                display: inline-block;
+                position: relative;
+                transition: all ease-in-out 0.3s;
+                span {
+                    transition: all ease-in-out 0.3s;
+                    position: absolute;
+                    display: block;
+                    background-color: #fff;
+                    padding: 0.6rem;
+                    border-radius: 20px;
+                }
+                .left {
+                    top: 0.28rem;
+                    box-shadow: 0 0 3px 3px #2195f37e;
+                    transform: translateX(0.25rem);
+                }
+                
+                .right {
+                    box-shadow: 0 0 3px 3px #ffffff78;
+                    top: 0.28rem;
+                    transform: translateX(-1.38rem);
+                }
+            }
+            .switch-off {
+                background-color: #ccc !important;
+            }
         }
 
         .table-data,

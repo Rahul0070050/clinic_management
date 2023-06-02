@@ -13,14 +13,12 @@ import useFetch from '../../../hooks/useFetch';
 
 import './style.scss';
 
+const postRequest = useFetch("POST");
 function Login() {
   const [userData, setUserData] = useState({ email: "", password: "", confirm_password: "" });
   const [userDataErr, setUserDataErr] = useState({ email: "", password: "", confirm_password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
-  // const navigate = useNavigate()
-  const postRequest = useFetch("POST");
-
 
   function handleOnchange(e) {
     setUserData(prev => {
@@ -41,7 +39,7 @@ function Login() {
           setUserDataErr((prev) => {
             return {
               ...prev,
-              [key]: "place provide " + key
+              [key]: "place provide "
             }
           })
         } else {
@@ -61,7 +59,7 @@ function Login() {
         setUserDataErr(prev => {
           return {
             ...prev,
-            password: "password must be more than 8 characters"
+            password: "more than 8 char"
           }
         });
       }
@@ -70,7 +68,7 @@ function Login() {
         setUserDataErr(prev => {
           return {
             ...prev,
-            confirm_password: "password is not matching"
+            confirm_password: "password not matching"
           }
         })
       }
@@ -111,19 +109,19 @@ function Login() {
           Lorem Ipsum has been the industry's standard dummy text ever since.</p>
         <form>
           <div className="form-control">
-            <label htmlFor="email">email {userDataErr.email && <span>*{userDataErr.email}</span>}</label>
+            <label htmlFor="email">{userDataErr.email && <span>*{userDataErr.email}</span>} email</label>
             <input type="text" name="email" onChange={handleOnchange} id="email" />
           </div>
           <div className="form-control">
             <img src={showPassword ? openEye : closedEYe} onClick={() => setShowPassword(show => !show)} alt="" />
             <div className="password-label">
-            <label htmlFor="password">password {userDataErr.password && <span>*{userDataErr.password}</span>}</label>
-            <Link to="/forgot-password">forgot password</Link>
+              <label htmlFor="password">{userDataErr.password && <span>*{userDataErr.password}</span>} password</label>
+              <Link to="/forgot-password">forgot password</Link>
             </div>
             <input type={showPassword ? "text" : "password"} name="password" onChange={handleOnchange} id='password' />
           </div>
           <div className="form-control">
-            <label htmlFor="">confirm password {userDataErr.confirm_password && <span>*{userDataErr.confirm_password}</span>}</label>
+            <label htmlFor="">{userDataErr.confirm_password && <span>*{userDataErr.confirm_password}</span>} confirm password</label>
             <input type={showPassword ? "text" : "password"} id='password-confirm-password' onChange={handleOnchange} name="confirm_password" />
           </div>
           <div className="form-control">

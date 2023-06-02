@@ -46,6 +46,9 @@ function DoctorNavBar() {
             <NavLink to="/doctor/appointments">Appointments</NavLink>
           </li>
           <li>
+            <NavLink to="/doctor/patients">Patients</NavLink>
+          </li>
+          <li>
             <NavLink to="/doctor/Profile">Profile</NavLink>
           </li>
         </>

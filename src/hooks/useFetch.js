@@ -61,7 +61,7 @@ export default function useFetch(method) {
                 }).then(res => {
                     resolve(res?.data);
                 }).catch(err => {
-                    if(err?.response?.data?.userBlocked) {
+                    if(err?.response?.data?.block) {
                         window.location = '/blocked'
                         return
                     }

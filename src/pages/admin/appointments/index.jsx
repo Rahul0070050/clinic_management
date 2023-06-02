@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import useFetch from '../../../hooks/useFetch'
 
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import './style.scss'
 
@@ -11,12 +12,11 @@ function Appointments() {
     const [appointments, setAppointments] = useState([])
     const [filter, setFilter] = useState('new')
     const navigate = useNavigate()
+    const { search } = useSelector((state) => state.root.admin)
+    const [count, setCount] = useState(0)
+
     useEffect(() => {
         try {
-            // getRequest('/doctor/get-dates').then(res => {
-            //     console.log(res);
-            //     setDates([...new Set([...res.dates])])
-            // })
             getAppointments()
         } catch (error) {
             console.log(error);
@@ -30,7 +30,7 @@ function Appointments() {
         getRequest(`/admin/get-appointments`).then(data => {
             console.log(data);
             setAppointments(() => {
-                return data.sort(function (a, b) {
+                return data.appointments.sort(function (a, b) {
                     return new Date(b.appointmentDate) - new Date(a.appointmentDate);
                 });
             });
@@ -52,7 +52,6 @@ function Appointments() {
         })
     }
 
-    console.log(appointments);
 
     return (
         <div className='admin-appointments'>
@@ -73,20 +72,68 @@ function Appointments() {
                             <div className="header__item"><a id="losses" className="filter__link filter__link--number" href="#">dob</a></div>
                         </div>
                         <div className="table-content">
-                            {appointments.map((item, i) => {
-                                if (filter && filter != item?.status) return null
-                                else return <div className="table-row" key={i}>
-                                    <div className="table-data">#{i}</div>
-                                    <div className="table-data">{item.firstName + " " + item.lastName}</div>
-                                    <div className="table-data">{item.mobile}</div>
-                                    <div className="table-data">{item.gender}</div>
-                                    <div className="table-data">{item.appointmentTime}</div>
-                                    <div className="table-data">{new Date(item.appointmentDate).toLocaleDateString()}</div>
-                                    <div className="table-data">{item.age}</div>
-                                    <div className="table-data">{item.dob}</div>
+                            <div className="table-contents">
+                                {search ? appointments.map((item, i) => {
+                                    if (filter && filter != item?.status) {
+                                        return null
+                                    } else {
+                                        if (i >= count && i <= count + 9) {
+                                            if (!item.firstName.startsWith(search, 0)) return
+                                            else return <div className="table-row" key={i}>
+                                                <div className="table-data">#{i}</div>
+                                                <div className="table-data">{item.firstName + " " + item.lastName}</div>
+                                                <div className="table-data">{item.mobile}</div>
+                                                <div className="table-data">{item.gender}</div>
+                                                <div className="table-data">{item.appointmentTime}</div>
+                                                <div className="table-data">{new Date(item.appointmentDate).toLocaleDateString()}</div>
+                                                <div className="table-data">{item.age}</div>
+                                                <div className="table-data">{item.dob}</div>
+                                            </div>
+                                        }
+                                    }
+                                }
+                                ) : appointments.map((item, i) => {
+                                    if (i >= count && i <= count + 9) {
+                                        if (filter && filter != item?.status) return null
+                                        else return <div className="table-row" key={i}>
+                                            <div className="table-data">#{i}</div>
+                                            <div className="table-data">{item.firstName + " " + item.lastName}</div>
+                                            <div className="table-data">{item.mobile}</div>
+                                            <div className="table-data">{item.gender}</div>
+                                            <div className="table-data">{item.appointmentTime}</div>
+                                            <div className="table-data">{new Date(item.appointmentDate).toLocaleDateString()}</div>
+                                            <div className="table-data">{item.age}</div>
+                                            <div className="table-data">{item.dob}</div>
+                                        </div>
+                                    }
+                                }
+                                )}
+                            </div>
+                            {appointments.length > 11 ?
+                                <div className="actions">
+                                    <button onClick={() => {
+                                        if (count <= 0) {
+                                            setCount(0)
+                                        } else {
+                                            setCount(count - 9)
+                                        }
+                                    }}>&lt;</button>
+                                    {appointments.map((item, i) => {
+                                        if (i % 9 == 0) {
+                                            return <span className={i == count ? 'selected' : ''} onClick={() => setCount(i)}>{i / 9 + 1}</span>
+                                        }
+                                    }
+                                    )}
+                                    <button onClick={() => {
+                                        if (count + 9 >= appointments.length) {
+                                            setCount(count)
+                                        } else {
+                                            setCount(count + 9)
+                                        }
+                                    }}>&gt;</button>
                                 </div>
+                                : null
                             }
-                            )}
                         </div>
                     </div>
                 </div>

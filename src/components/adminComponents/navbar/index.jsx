@@ -6,15 +6,25 @@ import { useDispatch, useSelector } from 'react-redux'
 import siteLogo from './../../../assets/svg/site-logo.svg'
 import notificationIcon from './../../../assets/svg/notification-icon.svg'
 import searchIcon from './../../../assets/svg/search-icon.svg'
-import { userLogout } from '../../../store/slice/userSlice'
-
+import { search } from '../../../store/slice/adminSlice'
 import './style.scss'
 
 function AdminNavBar() {
   const userToken = localStorage.getItem('admin-token')
   const { login } = useSelector(state => state.root.user);
-  console.log(login);
   const dispatch = useDispatch();
+
+  function handleSearch() {
+    let timer = null;
+
+    return (word) => {
+      clearTimeout(timer)
+      timer = setTimeout(() => {
+        dispatch(search(word))
+      }, 300)
+    }
+  }
+  let searchWord = handleSearch();
 
   function logoutHandler() {
     if (userToken) {
@@ -38,7 +48,7 @@ function AdminNavBar() {
           <h2>Skin Care</h2>
         </div>
         <div className="search">
-          <input placeholder='search...' type="text" name="" id="" />
+          <input placeholder='search by name' onChange={(e) => searchWord(e.target.value)} type="text" name="" id="" />
           <img src={searchIcon} alt="" />
         </div>
         <div className="notification">
@@ -51,10 +61,10 @@ function AdminNavBar() {
           <li><NavLink to={'/admin/appointments'}>Appointments</NavLink></li>
           <li><NavLink to={'/admin/doctors'}>Doctors</NavLink></li>
           <li><NavLink to={'/admin/departments'}>Departments</NavLink></li>
-          <li><NavLink to={'/admin/patients'}>Patients</NavLink></li>
+          {/* <li><NavLink to={'/admin/patients'}>Patients</NavLink></li> */}
           <li><NavLink to={'/admin/users'}>users</NavLink></li>
           <li><NavLink to={'/admin/payments'}>Payments</NavLink></li>
-          <li><NavLink to={'/admin/help'}>Help</NavLink></li>
+          {/* <li><NavLink to={'/admin/help'}>Help</NavLink></li> */}
         </ul>
       </div>
     </nav>

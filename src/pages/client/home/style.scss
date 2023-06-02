@@ -176,3 +176,150 @@
         }
     }
 }
+
+
+@media only screen and (max-width: 768px) {
+    .user-home {
+        .intro-section {
+            padding-left: 2rem;
+            height: 70vh;
+            padding: 3rem;
+
+            .text {
+                margin-top: 2rem;
+                padding: 0;
+
+                h1 {
+                    font-size: xx-large;
+                }
+
+                span {
+                    font-size: larger;
+                }
+            }
+
+            .image {
+                &>img {
+                    display: none;
+                }
+
+                .person {
+                    position: absolute;
+                    top: 8rem;
+                    left: 24rem;
+
+                    img {
+                        &:first-child {
+                            width: 15rem !important;
+                            margin-left: -2rem !important;
+                        }
+
+                        &:last-child {
+                            width: 15rem !important;
+                            margin-left: -8rem !important;
+                        }
+                    }
+                }
+            }
+        }
+
+        .about-section {
+            .image {
+                width: 20rem;
+
+                img {
+                    width: 20rem;
+                }
+            }
+
+            .text {
+                padding: 3rem;
+
+                h1 {
+                    font-size: xx-large;
+                }
+
+                p {
+                    font-size: larger;
+                }
+
+                margin: 0;
+            }
+        }
+
+        .doctor-list-section {
+            .header {
+                h1 {
+                    font-size: 2rem;
+                    font-weight: 700;
+                }
+            }
+
+            .doctors-list {
+                padding: 0 1rem;
+                margin: 2rem 1rem;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: start;
+
+                .card {
+                    width: 20rem;
+                    .image {
+                        img {
+                            width: 3rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 414px) {
+    .user-home {
+        .intro-section {
+            padding: 2rem 0;
+            display: flex;
+            height: fit-content;
+            flex-direction: column;
+            justify-content: start;
+
+            .text {
+                width: 20rem;
+
+                h1 {
+                    font-size: xx-large;
+                }
+
+                p {
+                    font-size: large;
+                }
+            }
+
+            .image {
+                margin-top: 5rem;
+                width: fit-content;
+                display: flex;
+                align-items: center;
+
+                .person {
+                    position: static;
+                    left: 0;
+                    bottom: -20rem;
+                }
+            }
+        }
+
+        .about-section {
+            .image {
+                display: none;
+            }
+
+            .text {
+                h1 {
+                    margin: 2rem 0;
+                }
+            }
+        }
+    }
+}

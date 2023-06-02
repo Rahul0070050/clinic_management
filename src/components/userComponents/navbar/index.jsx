@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import swal from 'sweetalert'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { userLogout } from '../../../store/slice/userSlice'
 
 import siteLogo from './../../../assets/svg/site-logo.svg'
-import { userLogout } from '../../../store/slice/userSlice'
-import { useDispatch, useSelector } from 'react-redux'
+import menuIcon from './../../../assets/images/menu-icon.png'
 
 import './style.scss'
 
@@ -13,6 +15,7 @@ function UserNavBar() {
 
   const { login } = useSelector(state => state.root.user);
   const dispatch = useDispatch();
+  const [displayMenu, setDisplayMenu] = useState(false)
 
   function logoutHandler() {
     if (userToken) {
@@ -34,30 +37,41 @@ function UserNavBar() {
         <img src={siteLogo} alt="" />
         <span>Skin Care</span>
       </div>
-      <ul>
-        <li>
-          <NavLink to="/">Home</NavLink>
+      <ul className={displayMenu ? 'show-menu' : ''}>
+        <li >
+          <NavLink to="/" onClick={() => setDisplayMenu(false)}>Home</NavLink>
         </li>
         {login && <li>
-          <NavLink to="/appointment">Appointment</NavLink>
+          <NavLink to="/appointment" onClick={() => setDisplayMenu(false)}>Appointment</NavLink>
         </li>}
         <li>
-          <NavLink to="/about-us">About US</NavLink>
+          <NavLink to="/about-us" onClick={() => setDisplayMenu(false)}>About US</NavLink>
         </li>
-        <li>
-          <NavLink to="/contact-us">Contact US</NavLink>
-        </li>
-        {login && <li>
-          <NavLink to="/profile">Profile</NavLink>
-        </li>}
+        {login &&
+          <>
+            <li>
+              <NavLink to="/Bookings" onClick={() => setDisplayMenu(false)}>Bookings</NavLink>
+            </li>
+            <li>
+              <NavLink to="/profile" onClick={() => setDisplayMenu(false)}>Profile</NavLink>
+            </li>
+          </>
+        }
         <li>
           {userToken ?
-            <button onClick={logoutHandler}>LogOut</button>
+            <button onClick={() => {
+              logoutHandler()
+              setDisplayMenu(false)
+            }}>LogOut</button>
             :
-            <button onClick={() => window.location = '/login'}>Login</button>
+            <button onClick={() => {
+              window.location = '/login'
+              setDisplayMenu(false)
+            }}>Login</button>
           }
         </li>
       </ul>
+      <img src={menuIcon} alt="" onClick={() => setDisplayMenu(!displayMenu)} className="menu" />
     </nav >
   )
 

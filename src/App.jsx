@@ -15,7 +15,6 @@ import DoctorHome from './pages/doctor/home'
 import DoctorNavBar from './components/doctorComponents/navbar'
 import DoctorSlots from './pages/doctor/slots'
 import ClientSlotsBooking from './pages/client/Slots'
-import AllPatientsList from './pages/admin/Patients'
 import AllUser from './pages/admin/users'
 import Appointments from './pages/doctor/appointments'
 import AdminAppointments from './pages/admin/appointments'
@@ -24,13 +23,14 @@ import ViewAppointmentDetails from './pages/doctor/viewAppointmentDetails'
 import Patients from './pages/doctor/patients'
 import PatientProfile from './pages/doctor/patientProfile'
 import AboutUs from './pages/client/aboutUs'
-import ContactUs from './pages/client/contactUs'
 import AdminDepartments from './pages/admin/departments'
 import Payments from './pages/admin/payments'
 import UserProfile from './pages/client/profile'
 import ForgotPassword from './pages/client/forgotPassword'
 import Blocked from './pages/Blocked'
 import DoctorProfile from './pages/doctor/profile'
+import Bookings from './pages/client/bookings/undex'
+import BookingsInfo from './pages/client/BookingsInfo'
 
 // style
 import './App.css'
@@ -92,10 +92,17 @@ const routes = createBrowserRouter([
     </>
   },
   {
-    path: "/contact-us",
+    path: "/bookings",
     element: <>
       <UserNavBar />
-      <ContactUs />
+      <Bookings />
+    </>
+  },
+  {
+    path: "/booking/view-info",
+    element: <>
+      <UserNavBar />
+      <BookingsInfo />
     </>
   },
   {
@@ -104,6 +111,13 @@ const routes = createBrowserRouter([
   },
   {
     path: '/doctor/profile',
+    element: <>
+      <DoctorNavBar />
+      <DoctorProfile />
+    </>
+  },
+  {
+    path: '/doctor/patient-info',
     element: <>
       <DoctorNavBar />
       <DoctorProfile />
@@ -169,13 +183,13 @@ const routes = createBrowserRouter([
       <AdminDoctorsList />
     </>
   },
-  {
-    path: '/admin/patients',
-    element: <>
-      <AdminNavBar />
-      <AllPatientsList />
-    </>
-  },
+  // {
+  //   path: '/admin/patients',
+  //   element: <>
+  //     <AdminNavBar />
+  //     <AllPatientsList />
+  //   </>
+  // },
   {
     path: '/admin/users',
     element: <>

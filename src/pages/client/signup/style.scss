@@ -44,26 +44,32 @@
 
         .mobile {
             position: relative;
-            img, svg {
+
+            img,
+            svg {
                 position: absolute;
                 width: 2rem !important;
                 margin-top: 1.9rem;
                 margin-left: 0.9rem;
             }
+
             select {
                 position: absolute;
                 width: 4rem;
                 color: transparent !important;
             }
+
             option {
                 color: black !important;
             }
+
             input {
                 width: 32rem;
                 position: absolute;
                 left: 5rem;
             }
         }
+
         .form-group {
             display: flex;
             width: 100%;
@@ -77,19 +83,22 @@
                 label {
                     font-size: xx-large;
                     line-height: 0.5rem;
+
                     span {
                         font-size: 1.2rem;
                         color: red;
                     }
                 }
 
-                input,select {
+                input,
+                select {
                     font-size: x-large;
                     color: rgba(0, 0, 0, 0.5);
                     outline: none;
                     margin: 1rem 0;
                     padding: 0.5rem;
                     border-radius: 10px;
+                    position: s;
                     border: 2px solid rgba(0, 0, 0, 0.5);
                 }
             }
@@ -104,6 +113,125 @@
             font-size: larger;
             border-radius: 10px;
             margin: 1rem 0;
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .user-signup {
+        height: fit-content;
+        flex-direction: column;
+
+        .info {
+            .image {
+                display: none;
+            }
+        }
+
+        form {
+            .form-group {
+                &:first-child {
+                    margin-top: 2rem;
+                }
+
+                &:nth-child(2) {
+                    margin-bottom: 5rem;
+                }
+
+                flex-direction: column;
+
+                .mobile {
+                    position: relative;
+
+                    img,
+                    svg {
+                        position: absolute;
+                        width: 2rem !important;
+                        margin-top: 1.9rem;
+                        margin-left: 0.9rem;
+                    }
+
+                    select {
+                        position: absolute;
+                        width: 4rem;
+                        color: transparent !important;
+                    }
+
+                    option {
+                        color: black !important;
+                    }
+
+                    input {
+                        width: 32rem;
+                        position: absolute;
+                        left: 5rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 414px) {
+    .user-signup {
+        width: 100%;
+
+        .info {
+            width: 90%;
+        }
+
+        form {
+            width: 90%;
+
+            .form-group {
+                width: 100%;
+
+                .form-control {
+                    width: 100%;
+
+                    margin: 0.5rem 0;
+
+                    input {
+                        width: 100%;
+                    }
+
+                }
+
+                .mobile {
+                    position: relative;
+
+                    img,
+                    svg {
+                        position: absolute;
+                        width: 2rem !important;
+                        margin-top: 1.9rem;
+                        margin-left: 0.9rem;
+                    }
+
+                    select {
+                        position: absolute;
+                        width: 20%;
+                        color: transparent !important;
+                    }
+
+                    option {
+                        color: black !important;
+                    }
+
+                    input {
+                        width: 75% !important;
+                        position: absolute;
+                        left: 25%;
+                    }
+                }
+            }
+
+            input[type="button"] {
+                padding: 1rem 2.5rem;
+                width: fit-content;
+                font-size: larger;
+                margin: 1rem 0;
+            }
         }
     }
 }

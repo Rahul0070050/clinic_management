@@ -3,7 +3,7 @@
     flex-direction: column;
     width: fit-content;
 
-    
+
     .form-group {
         display: flex;
     }
@@ -27,12 +27,14 @@
             outline: none;
             border: 1.5px solid gray;
         }
+
         textarea[name="message"] {
             width: 100%;
             padding: 4px;
             font-size: x-large;
         }
     }
+
     input[type="button"] {
         align-self: center;
         font-size: x-large;
@@ -47,5 +49,26 @@
         box-shadow: 0 0 5px #9083D5;
         border-radius: 10px;
         background-color: #9083D5;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .contact-form {
+        .form-group {
+            .form-control {
+                input {
+                    width: 20rem;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 414px) {
+    .contact-form {
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
     }
 }

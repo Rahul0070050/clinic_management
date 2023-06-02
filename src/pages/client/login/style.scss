@@ -103,3 +103,36 @@
         }
     }
 }
+
+@media only screen and (max-width: 768px) {
+    .user-login {
+        flex-direction: column-reverse;
+        .image {
+            display: none;
+        }
+    }
+}
+@media only screen and (max-width: 414px) {
+    .user-login {
+        .info {
+            width: 90%;
+            h1 {
+                font-size: 4rem;
+            }
+            form {
+                .form-control {
+                    label {
+                        text-transform: capitalize;
+                        font-size: large;
+                    }
+                    span {
+                        font-size: large;
+                    }
+                }
+                input[type="button"] {
+                    width: fit-content;
+                }
+            }
+        }
+    }
+}    

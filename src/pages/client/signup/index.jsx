@@ -196,27 +196,33 @@ function Signup() {
             }
         }
 
-        if (!recaptchaVerifier.current) {
-
-            try {
-                recaptchaVerifier.current = await new RecaptchaVerifier('recaptcha-container', {}, auth);
-            } catch (error) {
-                console.log(error);
+        postRequest("/user/is-user-exist", userData).then(async res => {
+            if (res.ok && !recaptchaVerifier.current) {
+                try {
+                    recaptchaVerifier.current = await new RecaptchaVerifier('recaptcha-container', {}, auth);
+                } catch (error) {
+                    console.log(error);
+                }
             }
-        }
 
-        if (!confirmationResult.current) {
-            try {
-                confirmationResult.current = await signInWithPhoneNumber(auth, userData.mobile, recaptchaVerifier.current)
-                console.log(confirmationResult.current);
-                toast('otp sent')
-                setOpen(true)
-            } catch (error) {
-                console.log(error);
+            if (!confirmationResult.current) {
+                try {
+                    confirmationResult.current = await signInWithPhoneNumber(auth, userData.mobile, recaptchaVerifier.current)
+                    console.log(confirmationResult.current);
+                    toast('otp sent')
+                    setOpen(true)
+                } catch (error) {
+                    console.log(error);
+                }
             }
-        }
-
-
+        }).catch(err => {
+            setUserDataErr(prev => {
+                return {
+                    ...prev,
+                    ...err
+                }
+            })
+        })
     }
     function verifyOtp() {
         try {
@@ -331,7 +337,7 @@ function Signup() {
                 </div>
                 <div id="recaptcha-container"></div>
                 {phoneVerified ? <input type="button" onClick={submitForm} value="Submit" id="" /> :
-                <input type="button" onClick={handleSubmit} value="Verify OTP" id="" />}
+                    <input type="button" onClick={handleSubmit} value="Verify OTP" id="" />}
             </form>
         </div>
     )

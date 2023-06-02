@@ -3,6 +3,7 @@ import useFetch from '../../../hooks/useFetch'
 
 import './style.scss'
 import { checkEmail, checkMobileNumberHasAnyCharacter, checkPasswordHasSpecialCharacters, checkStringHasSpecialCharactersOrNumbers } from '../../../util/utilFunnctions'
+import swal from 'sweetalert'
 function AddDoctor() {
   const [formData, setFormData] = useState({ CTC: "", experience: "", age: "", username: "", password: "", email: "", mobile: "", department: "" })
   const [formDataErr, setFormDataErr] = useState({ CTC: "", experience: "", age: "", username: "", password: "", email: "", mobile: "", department: "" })
@@ -26,7 +27,7 @@ function AddDoctor() {
     if (e.target.name == "age") {
       // console.log('from if');
       console.log(e.target.name, Number(e.target.value));
-      
+
       if (Number(e.target.value) <= 60) {
         setFormData(prev => {
           return {
@@ -35,7 +36,7 @@ function AddDoctor() {
           }
         })
       }
-    } else if(e.target.name == "CTC") {
+    } else if (e.target.name == "CTC") {
       if (Number(e.target.value) <= 50) {
         setFormData(prev => {
           return {
@@ -44,7 +45,7 @@ function AddDoctor() {
           }
         })
       }
-    }else if(e.target.name == "experience") {
+    } else if (e.target.name == "experience") {
       if (Number(e.target.value) <= 50) {
         setFormData(prev => {
           return {
@@ -158,7 +159,9 @@ function AddDoctor() {
 
       postRequest('/admin/add-doctor', formData).then(res => {
         if (res.ok) {
-          location = "/admin/doctors"
+          swal("Doctor added").then(res => {
+            location = "/admin/doctors"
+          })
         }
       }).catch(err => {
         delete err?.ok;
@@ -218,7 +221,7 @@ function AddDoctor() {
             </div>
             <div className="form-control">
               <label htmlFor="department">{formDataErr.department && <span>{formDataErr.department}</span>} department</label>
-              <select  value={formData.department}onChange={onHandleChange} name="department" id="department">
+              <select value={formData.department} onChange={onHandleChange} name="department" id="department">
                 {departments && departments.map((item, i) => <option key={i} value={item.name}>{item.name}</option>)}
               </select>
             </div>

@@ -79,6 +79,7 @@ function Appointments() {
                         </div>
                         <div className="table-content">
                             {appointments.map((item, i) => {
+                                console.log(item?.status);
                                 if (filter && filter != item?.status) return null
                                 else return <div className="table-row" key={i}>
                                     <div className="table-data">#{i}</div>

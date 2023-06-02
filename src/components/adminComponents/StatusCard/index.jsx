@@ -3,8 +3,7 @@ import React, { useState } from 'react'
 import doctorIcon from '../../../assets/images/doctor-icon-admin-status-card.png'
 import patientIcon from '../../../assets/images/patients-icon-admin-status-card.png'
 import bookingIcon from '../../../assets/images/booking-icon-admin-status.png'
-
-// import patientIcon from '../../../assets/images/patients-icon-admin-status-card.png'
+import department from '../../../assets/images/admin-departments-icon.png'
 // import patientIcon from '../../../assets/images/patients-icon-admin-status-card.png'
 // import patientIcon from '../../../assets/images/patients-icon-admin-status-card.png'
 
@@ -20,7 +19,7 @@ function StatusCard({ name, count }) {
             case "doctors":
                 return doctorIcon
             case "department":
-                return patientIcon
+                return department
             case "Bookings":
                 return bookingIcon
             default:

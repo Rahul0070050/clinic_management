@@ -7,6 +7,7 @@ import editIcon from '../../../assets/svg/edit-icon.svg'
 
 import './style.scss'
 import swal from 'sweetalert';
+import { useSelector } from 'react-redux';
 
 const postRequest = useFetch("POST");
 const getRequest = useFetch("GET");
@@ -17,6 +18,11 @@ function AdminDepartments() {
   const [departmentNameErr, setDepartmentNameErr] = useState(false)
   const [edit, setEdit] = useState(false)
   const [id, setId] = useState("")
+  const [count, setCount] = useState(0)
+
+
+  const { search } = useSelector((state) => state.root.admin)
+
 
   useEffect(() => {
     getRequest('/admin/get-all-department').then(res => {
@@ -123,23 +129,78 @@ function AdminDepartments() {
                 <div className="header__item"><a id="total" className="filter__link filter__link--number" href="#">actions</a></div>
               </div>
               <div className="table-content">
-                {department && department.map((user, i) => {
-                  const { name, doctorsCount, patientsCount, _id } = user;
-                  return <div className="table-row" key={i}>
-                    <div className="table-data"># {i + 1}</div>
-                    <div className="table-data">{name}</div>
-                    <div className="table-data">{doctorsCount}</div>
-                    <div className="table-data">{patientsCount}</div>
-                    <div className="table-data">
-                      <img src={editIcon} onClick={() => {
-                        setDepartmentName(name)
-                        setId(_id)
-                        setEdit(true)
-                      }} alt="" />
-                      <img src={deleteIcon} alt="" onClick={() => deleteHandler(_id)} />
+                <div className="table-contents">
+                  {search ? department && department.map((user, i) => {
+                    if (!user.name.startsWith(search, 0)) {
+                      return
+                    } else {
+                      if (i >= count && i <= count + 9) {
+                        const { name, doctorsCount, patientsCount, _id } = user;
+                        return <div className="table-row" key={i}>
+                        <div className="table-data"># {i + 1}</div>
+                        <div className="table-data">{name}</div>
+                        <div className="table-data">{doctorsCount}</div>
+                        <div className="table-data">{patientsCount}</div>
+                        <div className="table-data">
+                          <img src={editIcon} onClick={() => {
+                            setDepartmentName(name)
+                            setId(_id)
+                            setEdit(true)
+                          }} alt="" />
+                          <img src={deleteIcon} alt="" onClick={() => deleteHandler(_id)} />
+                        </div>
+                      </div>
+                      } else {
+                        return null
+                      }
+                    }
+                  }) : department && department.map((user, i) => {
+                    if (i >= count && i <= count + 9) {
+                      const { name, doctorsCount, patientsCount, _id } = user;
+                      return <div className="table-row" key={i}>
+                      <div className="table-data"># {i + 1}</div>
+                      <div className="table-data">{name}</div>
+                      <div className="table-data">{doctorsCount}</div>
+                      <div className="table-data">{patientsCount}</div>
+                      <div className="table-data">
+                        <img src={editIcon} onClick={() => {
+                          setDepartmentName(name)
+                          setId(_id)
+                          setEdit(true)
+                        }} alt="" />
+                        <img src={deleteIcon} alt="" onClick={() => deleteHandler(_id)} />
+                      </div>
                     </div>
+                      } else {
+                        return null
+                      }
+                  })}
+                </div>
+                {department.length > 11 ?
+                  <div className="actions">
+                    <button onClick={() => {
+                      if (count <= 0) {
+                        setCount(0)
+                      } else {
+                        setCount(count - 9)
+                      }
+                    }}>&lt;</button>
+                    {department.map((item, i) => {
+                      if (i % 9 == 0) {
+                        return <span className={i == count ? 'selected' : ''} onClick={() => setCount(i)}>{i / 9 + 1}</span>
+                      }
+                    }
+                    )}
+                    <button onClick={() => {
+                      if (count + 9 >= department.length) {
+                        setCount(count)
+                      } else {
+                        setCount(count + 9)
+                      }
+                    }}>&gt;</button>
                   </div>
-                })}
+                  : null
+                }
               </div>
             </div>
           </div>

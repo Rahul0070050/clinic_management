@@ -73,7 +73,7 @@ function UserHome() {
       </div>
       <div className="doctor-list-section">
         <div className="header">
-          <h1>All Doctors</h1>
+          <h1>Our Doctors</h1>
         </div>
         <div className="doctors-list">
           {doctors && doctors.map(doctor => (<div key={doctor._id} className="card">
@@ -83,7 +83,6 @@ function UserHome() {
             <div className="info">
               <strong>{doctor.username}</strong>
               <span>{doctor.department}</span>
-              <a href='#'>view</a>
             </div>
           </div>))}
         </div>

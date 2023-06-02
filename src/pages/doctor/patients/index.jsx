@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import deleteIcon from '../../../assets/svg/delete-icon.svg'
 import useFetch from '../../../hooks/useFetch';
 import viewIcon from '../../../assets/images/view-icon.png'
+
 import './style.scss';
 
 const getRequest = useFetch("GET")

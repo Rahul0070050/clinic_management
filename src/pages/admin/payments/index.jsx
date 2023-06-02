@@ -6,15 +6,18 @@ import deleteIcon from '../../../assets/svg/delete-icon.svg'
 import editIcon from '../../../assets/svg/edit-icon.svg'
 
 import './style.scss'
+import { useSelector } from 'react-redux';
 
 const getRequest = useFetch("GET");
 
 function Payments() {
+  const { search } = useSelector((state) => state.root.admin)
+
   const [payments, setPayments] = useState([])
+  const [count, setCount] = useState(0)
   useEffect(() => {
     getRequest('/admin/get-all-payments').then(response => {
       setPayments(response.result);
-      console.log(response.result);
     })
   }, [])
 
@@ -32,19 +35,63 @@ function Payments() {
                 <div className="header__item"><a id="draws" className="filter__link filter__link--number" href="#">email</a></div>
                 <div className="header__item"><a id="total" className="filter__link filter__link--number" href="#">mobile</a></div>
                 <div className="header__item"><a id="total" className="filter__link filter__link--number" href="#">amount</a></div>
-                {/* <div className="header__item"><a id="total" className="filter__link filter__link--number" href="#">Action</a></div> */}
               </div>
               <div className="table-content">
-                {payments && payments.map((user, i) => {
-                  const { firstName, lastName, email, mobile, amount, } = user;
-                  return <div className="table-row" key={i}>
-                    <div className="table-data"># {i + 1}</div>
-                    <div className="table-data">{firstName + " " + lastName}</div>
-                    <div className="table-data">{email}</div>
-                    <div className="table-data">{mobile}</div>
-                    <div className="table-data">{amount}</div>
-                  </div>
-                })}
+                <div className="table-contents">
+                  {search ? payments && payments.map((user, i) => {
+                    if (!user.firstName.startsWith(search, 0)) {
+                      return null
+                    } else {
+                      if (i >= count && i <= count + 9) {
+                        const { firstName, lastName, email, mobile, amount, } = user;
+                        return <div className="table-row" key={i}>
+                          <div className="table-data"># {i + 1}</div>
+                          <div className="table-data">{firstName + " " + lastName}</div>
+                          <div className="table-data">{email}</div>
+                          <div className="table-data">{mobile}</div>
+                          <div className="table-data">{amount}</div>
+                        </div>
+                      } else {
+                        return null
+                      }
+                    }
+                  }) : payments && payments.map((user, i) => {
+                    if (i >= count && i <= count + 9) {
+                      const { firstName, lastName, email, mobile, amount, } = user;
+                      return <div className="table-row" key={i}>
+                        <div className="table-data"># {i + 1}</div>
+                        <div className="table-data">{firstName + " " + lastName}</div>
+                        <div className="table-data">{email}</div>
+                        <div className="table-data">{mobile}</div>
+                        <div className="table-data">{amount}</div>
+                      </div>
+                    } else {
+                      return null
+                    }
+                  })}
+                </div>
+                <div className="actions">
+                  <button onClick={() => {
+                    if (count <= 0) {
+                      setCount(0)
+                    } else {
+                      setCount(count - 9)
+                    }
+                  }}>&lt;</button>
+                  {payments.map((item, i) => {
+                    if (i % 9 == 0) {
+                      return <span className={i == count ? 'selected' : ''} onClick={() => setCount(i)}>{i / 9 + 1}</span>
+                    }
+                  }
+                  )}
+                  <button onClick={() => {
+                    if (count + 9 >= payments.length) {
+                      setCount(count)
+                    } else {
+                      setCount(count + 9)
+                    }
+                  }}>&gt;</button>
+                </div>
               </div>
             </div>
           </div>

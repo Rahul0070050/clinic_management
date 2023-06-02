@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
+
+$base-spacing-unit: 24px;
+$half-spacing-unit: $base-spacing-unit / 2;
+
+$color-alpha: #1772FF;
+$color-form-highlight: #EEEEEE;
+
+.user-appointment-bookings {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    height: 90%;
+
+    &>div {
+        width: 100%;
+        padding: 2rem;
+
+        .table-content {
+            padding: 1rem;
+
+            .appointment {
+                position: relative;
+                margin: 2rem 0;
+                border-radius: 10px;
+                box-shadow: 0 0 4px 4px rgba(128, 128, 128, 0.374);
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                padding: 1.4rem;
+
+                .right {
+                    div {
+                        &:last-child {
+                            &:first-child {
+                                width: 2rem;
+                            }
+                        }
+                    }
+                }
+
+                .left,
+                .right {
+                    width: 100%;
+                    display: flex;
+
+                    div {
+                        display: flex;
+                        flex-direction: column;
+
+                        &:first-child {
+                            margin-right: 7rem;
+                        }
+
+                        span {
+                            font-size: 1.3rem;
+                            padding: 0.1rem;
+
+                            &:first-child {
+                                text-transform: capitalize;
+                            }
+                        }
+                    }
+                }
+            }
+
+            button {
+                position: absolute;
+                bottom: 1.1rem;
+                right: 1.1rem;
+                padding: 0.2rem 1rem;
+                background-color: rgba(255, 38, 38, 0.704);
+                color: white;
+                outline: none;
+                font-weight: 600;
+                font-size: larger;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .user-appointment-bookings {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 414px) {
+    .user-appointment-bookings {
+        .new-booking {
+            .appointment {
+                height: 20rem;
+            }
+        }
+        &>div {
+            padding: 0 1rem;
+
+            .table-content {
+                padding: 1rem;
+
+                .appointment {
+                    flex-direction: column;
+
+                    .left,
+                    .right {
+                        display: flex;
+                        
+                        div {
+                            margin-bottom: 1rem;
+                            width: 100%;
+                            display: flex;
+                            justify-content: space-between;
+
+                            &:first-child {
+                                margin-right: 2rem;
+                            }
+
+                            span {
+                                width: 100%;
+                                font-size: 1.3rem;
+                                padding: 0.1rem;
+
+                                &:first-child {
+                                    text-transform: capitalize;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                button {
+                    bottom: 0.7rem;
+                    right: 3rem;
+                }
+            }
+        }
+    }
+}

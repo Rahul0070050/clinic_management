@@ -6,12 +6,15 @@
 
     .user-info {
         margin-left: 2.3rem;
+
         .user-info-header {
             font-size: xx-large;
             text-transform: capitalize;
             margin: 2rem 0 3rem 0;
         }
+
         width: 50%;
+
         .info {
             box-shadow: 0 0 4px 4px rgba(128, 128, 128, 0.227);
             height: fit-content;
@@ -50,7 +53,8 @@
     .user-history {
         width: 50%;
         height: 88vh;
-        .no-history-available  {
+
+        .no-history-available {
             font-size: 4rem;
             font-weight: 600;
             padding: 3rem;
@@ -60,6 +64,7 @@
             border-radius: 30px;
             box-shadow: inset 0 0 4px 4px rgba(128, 128, 128, 0.218);
         }
+
         .header {
             margin: 2rem 0 2rem 3rem;
         }
@@ -76,6 +81,7 @@
             &::-webkit-scrollbar {
                 display: none;
             }
+
             .history {
                 margin: 1rem 0;
                 box-shadow: 0 0 4px 4px rgba(128, 128, 128, 0.268);
@@ -97,6 +103,7 @@
                         flex-direction: column;
                         width: 100%;
                     }
+
                     .values {
                         margin-top: 1rem;
                     }
@@ -106,6 +113,64 @@
                     .header {
                         margin: 1rem 0;
                     }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .user-Profile {
+        flex-direction: column;
+        align-items: center;
+
+        .user-info {
+            margin: 0;
+            width: 90%;
+        }
+
+        .user-history {
+            width: 100%;
+
+            .container {}
+        }
+    }
+}
+
+@media only screen and (max-width: 414px) {
+    .user-Profile {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 1rem;
+
+        .user-info {
+            margin: 0;
+            width: 90%;
+
+            .info {
+
+                .keys,
+                .values {
+                    font-size: large;
+                }
+            }
+        }
+
+        .user-history {
+            width: 100%;
+.header {
+    margin: 2rem 1rem;
+}
+            .container {
+                width: 100%;
+                .history {
+                    .prescriptions {
+                        overflow-x: auto;
+                        div{
+                            width: 30rem;
+                        }
+                    }
+
                 }
             }
         }

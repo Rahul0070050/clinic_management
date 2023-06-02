@@ -6,10 +6,13 @@ import deleteIcon from '../../../assets/svg/delete-icon.svg'
 import editIcon from '../../../assets/svg/edit-icon.svg'
 
 import './style.scss'
+import { useSelector } from 'react-redux';
 
 const getRequest = useFetch("GET");
 
 function AllPatientsList() {
+    const { search } = useSelector((state) => state.root.admin)
+
     const [patients, setPatients] = useState([])
     useEffect(() => {
         getRequest('/admin/get-all-patients').then(response => {
@@ -33,24 +36,29 @@ function AllPatientsList() {
                                 <div className="header__item"><a id="losses" className="filter__link filter__link--number" href="#">DOB</a></div>
                                 <div className="header__item"><a id="losses" className="filter__link filter__link--number" href="#">mobile</a></div>
                                 <div className="header__item"><a id="losses" className="filter__link filter__link--number" href="#">email</a></div>
-                                {/* <div className="header__item"><a id="total" className="filter__link filter__link--number" href="#">Actions</a></div> */}
                             </div>
                             <div className="table-content">
-                                {patients.map((patient,i) => <div className="table-row">
-                                    <div className="table-data">#{i+1}</div>
-                                    <div className="table-data">{patient.firstName+ " "+patient.lastName}</div>
+                                {search ? patients.map((patient, i) => {
+                                    if (!patient.firstName.startsWith(search, 0)) return
+                                    else return <div className="table-row">
+                                        <div className="table-data">#{i + 1}</div>
+                                        <div className="table-data">{patient.firstName + " " + patient.lastName}</div>
+                                        <div className="table-data">{patient.age}</div>
+                                        <div className="table-data">{patient.gender}</div>
+                                        <div className="table-data">{patient.doctorName}</div>
+                                        <div className="table-data">{patient.dob}</div>
+                                        <div className="table-data">{patient.mobile}</div>
+                                        <div className="table-data">{patient.email}</div>
+                                    </div>
+                                }) : patients.map((patient, i) => <div className="table-row">
+                                    <div className="table-data">#{i + 1}</div>
+                                    <div className="table-data">{patient.firstName + " " + patient.lastName}</div>
                                     <div className="table-data">{patient.age}</div>
                                     <div className="table-data">{patient.gender}</div>
                                     <div className="table-data">{patient.doctorName}</div>
                                     <div className="table-data">{patient.dob}</div>
                                     <div className="table-data">{patient.mobile}</div>
                                     <div className="table-data">{patient.email}</div>
-                                    {/* <div className="table-data">
-                                        <span>
-                                            <img src={editIcon} alt="" />
-                                            <img src={deleteIcon} alt="" />
-                                        </span>
-                                    </div> */}
                                 </div>)}
                             </div>
                         </div>

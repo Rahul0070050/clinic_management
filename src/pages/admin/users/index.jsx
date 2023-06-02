@@ -6,10 +6,13 @@ import deleteIcon from '../../../assets/svg/delete-icon.svg'
 import editIcon from '../../../assets/svg/edit-icon.svg'
 
 import './style.scss'
+import { useSelector } from 'react-redux';
 
 const getRequest = useFetch("GET");
 
 function AllUser() {
+    const { search } = useSelector((state) => state.root.admin)
+
     const [users, setUsers] = useState([])
     useEffect(() => {
         getRequest('/admin/get-all-users').then(response => {
@@ -50,30 +53,62 @@ function AllUser() {
                                 <div className="header__item"><a id="total" className="filter__link filter__link--number" href="#">Block User</a></div>
                             </div>
                             <div className="table-content">
-                                {users && users.map((user, i) => {
-                                    console.log(user);
-                                    const { _id: id, firstName, lastName, email, dateOfBirth, gender, block, mobile, } = user;
-                                    console.log(block);
-                                    return <div className="table-row" key={id}>
-                                        <div className="table-data"># {i + 1}</div>
-                                        <div className="table-data">{firstName + " " + lastName}</div>
-                                        <div className="table-data">{dateOfBirth}</div>
-                                        <div className="table-data">{email}</div>
-                                        <div className="table-data">{gender}</div>
-                                        <div className="table-data">{mobile}</div>
-                                        <div className="table-data">
-                                            <span>
-                                                <span onClick={() => blockUser(id)} className={`${!block ? 'switch-off' : ''} switch`}><span className={`${block ? 'left' : 'right'}`}></span></span>
-                                            </span>
+                                <div className="table-contents">
+                                    {search ? users && users.map((user, i) => {
+                                        if (!user.firstName.startsWith(search, 0)) {
+                                            return
+                                        } else {
+                                            const { _id: id, firstName, lastName, email, dateOfBirth, gender, block, mobile, } = user;
+                                            console.log(block);
+                                            return <div className="table-row" key={id}>
+                                                <div className="table-data"># {i + 1}</div>
+                                                <div className="table-data">{firstName + " " + lastName}</div>
+                                                <div className="table-data">{dateOfBirth}</div>
+                                                <div className="table-data">{email}</div>
+                                                <div className="table-data">{gender}</div>
+                                                <div className="table-data">{mobile}</div>
+                                                <div className="table-data">
+                                                    <span>
+                                                        <span onClick={() => blockUser(id)} className={`${!block ? 'switch-off' : ''} switch`}><span className={`${block ? 'left' : 'right'}`}></span></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        }
+                                    }) : users && users.map((user, i) => {
+                                        console.log(user);
+                                        const { _id: id, firstName, lastName, email, dateOfBirth, gender, block, mobile, } = user;
+                                        console.log(block);
+                                        return <div className="table-row" key={id}>
+                                            <div className="table-data"># {i + 1}</div>
+                                            <div className="table-data">{firstName + " " + lastName}</div>
+                                            <div className="table-data">{dateOfBirth}</div>
+                                            <div className="table-data">{email}</div>
+                                            <div className="table-data">{gender}</div>
+                                            <div className="table-data">{mobile}</div>
+                                            <div className="table-data">
+                                                <span>
+                                                    <span onClick={() => blockUser(id)} className={`${!block ? 'switch-off' : ''} switch`}><span className={`${block ? 'left' : 'right'}`}></span></span>
+                                                </span>
+                                            </div>
                                         </div>
+                                    })}
+                                </div>
+                                {users.length > 11 ?
+                                    <div className="actions">
+                                        <button>&lt;</button>
+                                        <span>1</span>
+                                        <span>2</span>
+                                        <span>3</span>
+                                        <button>&gt;</button>
                                     </div>
-                                })}
+                                    : null
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

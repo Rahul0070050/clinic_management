@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     loading: false,
+    search: "",
     login: localStorage.getItem('admin-token')
 
 }
@@ -12,12 +13,15 @@ const adminSlice = createSlice({
     reducers: {
         startLoading: (state) => {
             state.loading = true;
+        },
+        search: (state, { payload }) => {
+            state.search = payload
         }
     }
 })
 
 const adminReducer = adminSlice.reducer
 
-export const { startLoading } = adminSlice.actions;
+export const { startLoading, search } = adminSlice.actions;
 
 export default adminReducer;

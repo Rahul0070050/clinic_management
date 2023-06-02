@@ -167,3 +167,53 @@
         }
     }
 }
+
+
+@media only screen and (max-width: 768px) {
+    .client-slots-booking {
+        flex-direction: column;
+        width: 100vw;
+        .slots {
+            width: 100%;
+            .dates {
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+                width: 100%;
+                overflow-x: auto;
+                margin-left: 0;
+            }
+        }
+        .appointment-form {
+            margin-top: 3rem    ;
+            width: 100%;
+            // display: none;
+        }
+    }
+}
+@media only screen and (max-width: 414px) {
+    .client-slots-booking {
+        flex-direction: column;
+        width: 100vw;
+        .slots {
+            overflow: hidden;
+            width: 100%;
+            .dates {
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+                width: 100%;
+                overflow-x: auto;
+                margin-left: 0;
+            }
+        }
+        .appointment-form {
+            margin-top: 3rem    ;
+            width: 100%;
+            .form-control {
+                flex-direction: column;
+            }
+        }
+    }
+}
+    

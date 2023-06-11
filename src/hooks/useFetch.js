@@ -15,8 +15,8 @@ export default function useFetch(method) {
     }
 
     const token = setToken()
-
-    let BASEURL = "http://localhost:5000/api";
+    // let BASEURL = "http://localhost:5000/api";
+    let BASEURL = "https://clinic-management-kk67.onrender.com/api";
     let METHOD = null;
     let URL = "";
 
@@ -61,6 +61,7 @@ export default function useFetch(method) {
                 }).then(res => {
                     resolve(res?.data);
                 }).catch(err => {
+                    console.log(err?.response?.data);
                     if(err?.response?.data?.block) {
                         window.location = '/blocked'
                         return

@@ -17,7 +17,7 @@ function AddDoctor() {
       setFormData(prev => {
         return {
           ...prev,
-          department: res?.departments[0].name
+          department: res?.departments[0]?.name
         }
       })
     })

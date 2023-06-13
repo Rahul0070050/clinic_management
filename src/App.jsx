@@ -1,39 +1,44 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 // pages
-import Login from './pages/client/login'
-import DoctorLogin from './pages/doctor/login'
-import UserHome from './pages/client/home'
-import Signup from './pages/client/signup'
 import UserNavBar from './components/userComponents/navbar'
+import AdminNavBar from './components/adminComponents/navbar'
+import DoctorNavBar from './components/doctorComponents/navbar'
+
 import AdminLogin from './pages/admin/login'
 import AdminHome from './pages/admin/home'
-import AdminNavBar from './components/adminComponents/navbar'
-import AdminDoctorsList from './pages/admin/doctors'
 import AddDoctor from './pages/admin/addDoctor'
-import DoctorHome from './pages/doctor/home'
-import DoctorNavBar from './components/doctorComponents/navbar'
-import DoctorSlots from './pages/doctor/slots'
-import ClientSlotsBooking from './pages/client/Slots'
-import AllUser from './pages/admin/users'
-import Appointments from './pages/doctor/appointments'
 import AdminAppointments from './pages/admin/appointments'
+import AdminDoctorsList from './pages/admin/doctors'
 import EditDoctor from './pages/admin/editDoctor'
-import ViewAppointmentDetails from './pages/doctor/viewAppointmentDetails'
-import Patients from './pages/doctor/patients'
-import PatientProfile from './pages/doctor/patientProfile'
-import AboutUs from './pages/client/aboutUs'
+import AllUser from './pages/admin/users'
 import AdminDepartments from './pages/admin/departments'
 import Payments from './pages/admin/payments'
+
+import Login from './pages/client/login'
+import UserHome from './pages/client/home'
+import ClientSlotsBooking from './pages/client/Slots'
+import Signup from './pages/client/signup'
+import AboutUs from './pages/client/aboutUs'
 import UserProfile from './pages/client/profile'
 import ForgotPassword from './pages/client/forgotPassword'
-import Blocked from './pages/Blocked'
-import DoctorProfile from './pages/doctor/profile'
 import Bookings from './pages/client/bookings/undex'
 import BookingsInfo from './pages/client/BookingsInfo'
 
+import Appointments from './pages/doctor/appointments'
+import DoctorLogin from './pages/doctor/login'
+import DoctorHome from './pages/doctor/home'
+import DoctorSlots from './pages/doctor/slots'
+import ViewAppointmentDetails from './pages/doctor/viewAppointmentDetails'
+import Patients from './pages/doctor/patients'
+import PatientProfile from './pages/doctor/patientProfile'
+import DoctorProfile from './pages/doctor/profile'
+
+import Blocked from './pages/Blocked'
+
 // style
 import './App.css'
+import ErrorBoundary from './ErrorHandler'
 
 const routes = createBrowserRouter([
   {
@@ -183,13 +188,6 @@ const routes = createBrowserRouter([
       <AdminDoctorsList />
     </>
   },
-  // {
-  //   path: '/admin/patients',
-  //   element: <>
-  //     <AdminNavBar />
-  //     <AllPatientsList />
-  //   </>
-  // },
   {
     path: '/admin/users',
     element: <>
@@ -233,10 +231,13 @@ const routes = createBrowserRouter([
     </>
   }
 ])
+
 function App() {
   return (
     <>
-      <RouterProvider router={routes} />
+      <ErrorBoundary>
+        <RouterProvider router={routes} />
+      </ErrorBoundary>
     </>
   )
 }

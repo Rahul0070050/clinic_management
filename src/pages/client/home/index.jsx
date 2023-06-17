@@ -21,7 +21,6 @@ function UserHome() {
   const { doctors } = useSelector(state => state.root.user)
   useLayoutEffect(() => {
     getRequest('/user/get-all-doctors').then(res => {
-      console.log(res);
       dispatch(setDoctors(res?.doctors))
     })
   }, [])

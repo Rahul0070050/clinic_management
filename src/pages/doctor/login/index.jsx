@@ -123,6 +123,7 @@ function Login() {
           <div className="form-control">
             <input type="button" name="button" onClick={handleSubmit} value="Sign In" />
             <div></div>
+            <Link to={'/doctor/forgot-password'}>forgot password</Link>
           </div>
         </form>
       </div>

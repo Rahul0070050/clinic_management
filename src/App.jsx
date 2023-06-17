@@ -33,6 +33,7 @@ import ViewAppointmentDetails from './pages/doctor/viewAppointmentDetails'
 import Patients from './pages/doctor/patients'
 import PatientProfile from './pages/doctor/patientProfile'
 import DoctorProfile from './pages/doctor/profile'
+import DoctorForgotPassword from './pages/doctor/forgotPassword'
 
 import Blocked from './pages/Blocked'
 
@@ -113,6 +114,13 @@ const routes = createBrowserRouter([
   {
     path: '/doctor/login',
     element: <DoctorLogin />
+  },
+  {
+    path: "/doctor/forgot-password",
+    element: <>
+      <UserNavBar />
+      <DoctorForgotPassword />
+    </>
   },
   {
     path: '/doctor/profile',
@@ -235,7 +243,7 @@ const routes = createBrowserRouter([
 function App() {
   return (
     <>
-      <ErrorBoundary>
+      <ErrorBoundary fallback={<div><h3>Something went wrong</h3></div>}>
         <RouterProvider router={routes} />
       </ErrorBoundary>
     </>

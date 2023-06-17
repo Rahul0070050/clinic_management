@@ -15,8 +15,8 @@ import './style.scss';
 
 const postRequest = useFetch("POST");
 function Login() {
-  const [userData, setUserData] = useState({ email: "", password: "", confirm_password: "" });
-  const [userDataErr, setUserDataErr] = useState({ email: "", password: "", confirm_password: "" });
+  const [userData, setUserData] = useState({ email: "", password: ""});
+  const [userDataErr, setUserDataErr] = useState({ email: "", password: ""});
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
 
@@ -33,7 +33,7 @@ function Login() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (userData.email == "" || userData.password == "" || userData.confirm_password == "") {
+    if (userData?.email == "" || userData?.password == "") {
       for (const key in userData) {
         if (userData[key] == "") {
           setUserDataErr((prev) => {
@@ -54,8 +54,8 @@ function Login() {
       return;
     }
 
-    if (userData.password != userData.confirm_password || userData.password.length < 8) {
-      if (userData.password.length < 8) {
+    if (userData?.password != "" && userData?.password?.length < 8) {
+      if (userData?.password.length < 8) {
         setUserDataErr(prev => {
           return {
             ...prev,
@@ -64,11 +64,11 @@ function Login() {
         });
       }
 
-      if (userData.password != userData.confirm_password) {
+      if (userData?.password != "") {
         setUserDataErr(prev => {
           return {
             ...prev,
-            confirm_password: "password not matching"
+            password: "please provide"
           }
         })
       }
@@ -76,7 +76,7 @@ function Login() {
     }
 
 
-    setUserDataErr({ email: "", password: "", confirm_password: "" })
+    setUserDataErr({ email: "", password: "" })
 
 
     try {
@@ -87,10 +87,11 @@ function Login() {
         window.location = '/'
         dispatch(userLogin(res.user))
       }).catch(err => {
+        console.log(err);
         setUserDataErr(prev => {
           return {
             ...prev,
-            [err.type]: err.message
+            [err?.type]: err?.message
           }
         })
       });
@@ -109,20 +110,16 @@ function Login() {
           Lorem Ipsum has been the industry's standard dummy text ever since.</p>
         <form>
           <div className="form-control">
-            <label htmlFor="email">{userDataErr.email && <span>*{userDataErr.email}</span>} email</label>
+            <label htmlFor="email">{userDataErr?.email && <span>*{userDataErr?.email}</span>} email</label>
             <input type="text" name="email" onChange={handleOnchange} id="email" />
           </div>
           <div className="form-control">
             <img src={showPassword ? openEye : closedEYe} onClick={() => setShowPassword(show => !show)} alt="" />
             <div className="password-label">
-              <label htmlFor="password">{userDataErr.password && <span>*{userDataErr.password}</span>} password</label>
+              <label htmlFor="password">{userDataErr?.password && <span>*{userDataErr?.password}</span>} password</label>
               <Link to="/forgot-password">forgot password</Link>
             </div>
             <input type={showPassword ? "text" : "password"} name="password" onChange={handleOnchange} id='password' />
-          </div>
-          <div className="form-control">
-            <label htmlFor="">{userDataErr.confirm_password && <span>*{userDataErr.confirm_password}</span>} confirm password</label>
-            <input type={showPassword ? "text" : "password"} id='password-confirm-password' onChange={handleOnchange} name="confirm_password" />
           </div>
           <div className="form-control">
             <div className="btns">

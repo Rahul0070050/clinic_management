@@ -112,8 +112,9 @@
         }
 
         .doctors-list {
-            padding: 0 2rem;
-            margin: 2rem 10rem;
+            position: static;
+            padding: 4rem 2rem 2rem 2rem;
+            margin: 0 10rem 2rem 10rem;
             display: flex;
             flex-wrap: wrap;
             justify-content: start;

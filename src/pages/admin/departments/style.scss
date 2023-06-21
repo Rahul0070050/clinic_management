@@ -7,6 +7,21 @@ $color-alpha: #1772FF;
 $color-form-highlight: #EEEEEE;
 
 .admin-department {
+    position: relative;
+
+    .filter-background {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: -7.5rem;
+        z-index: 3;
+        height: 100vh;
+        width: 100vw;
+        backdrop-filter: blur(2px);
+        background-color: rgba(128, 128, 128, 0.378);
+    }
+
     .all-departments {
         width: 100%;
         display: flex;
@@ -17,6 +32,24 @@ $color-form-highlight: #EEEEEE;
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            .header-child {
+                display: flex;
+                align-items: center;
+
+                span {
+                    display: flex;
+                    font-size: x-large;
+                    text-transform: capitalize;
+                    font-weight: 700;
+                    align-items: center;
+                    padding: 0.3rem 1rem;
+                    margin: 0 0 0 1rem;
+                    color: black;
+                    border-radius: 20px;
+                    background-color: #84b5ff;
+                }
+            }
 
             .form-control {
                 margin-right: 5rem;

@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 
 export default function useFetch(method) {
 
+    // const navigate = useNavigate()
+    // const [first, setfirst] = useState()
     function setToken() {
         if (window.location.pathname.startsWith('/doctor')) {
             return JSON.parse(localStorage.getItem('doctor-token')) || ""
@@ -16,8 +18,8 @@ export default function useFetch(method) {
 
     const token = setToken()
     // let BASEURL = "http://44.203.69.42/api"
-    // let BASEURL = "http://localhost:5000/api";
-    let BASEURL = "https://clinic-management-kk67.onrender.com/api";
+    let BASEURL = "http://localhost:5000/api";
+    // let BASEURL = "https://clinic-management-kk67.onrender.com/api";
     let METHOD = null;
     let URL = "";
 
@@ -44,7 +46,6 @@ export default function useFetch(method) {
     return function fetchData(url, data = {}) {
         if (!URL.endsWith(url))
             URL = BASEURL.concat(url);
-
         return new Promise((resolve, reject) => {
             if (METHOD == null) {
                 reject({ type: "", message: "method is not applicable" });
@@ -57,12 +58,12 @@ export default function useFetch(method) {
                     data: JSON.stringify(data),
                     headers: {
                         'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`
+                        'Authorization': `Bearer ${token}`
                     }
                 }).then(res => {
                     resolve(res?.data);
                 }).catch(err => {
-                    console.log(err?.response?.data);
+                    console.log(err);
                     if (err?.response?.data?.block) {
                         window.location = '/blocked'
                         return

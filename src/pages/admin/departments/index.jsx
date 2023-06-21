@@ -8,25 +8,30 @@ import editIcon from '../../../assets/svg/edit-icon.svg'
 import './style.scss'
 import swal from 'sweetalert';
 import { useSelector } from 'react-redux';
+import filterIcon from '../../../assets/images/filter.png'
+import DepartmentFilter from '../../../components/adminComponents/departmentFilter';
+
 
 const postRequest = useFetch("POST");
 const getRequest = useFetch("GET");
 
 function AdminDepartments() {
   const [department, setDepartment] = useState([])
+  const [allDepartment, setAllDepartment] = useState([])
   const [departmentName, setDepartmentName] = useState("")
   const [departmentNameErr, setDepartmentNameErr] = useState(false)
   const [edit, setEdit] = useState(false)
   const [id, setId] = useState("")
   const [count, setCount] = useState(0)
+  const [open, setOpen] = useState(false)
 
 
   const { search } = useSelector((state) => state.root.admin)
 
-
   useEffect(() => {
     getRequest('/admin/get-all-department').then(res => {
       setDepartment(res.allDepartments)
+      setAllDepartment(res.allDepartments)
     })
 
   }, [])
@@ -74,6 +79,22 @@ function AdminDepartments() {
     })
   }
 
+  function filter(filterFrom, filterTo) {
+    let filteredDepartment = allDepartment
+    if (filterFrom?.patientsCount != "") {
+      filteredDepartment = filteredDepartment.filter(item => item?.patientsCount >= filterFrom?.patientsCount && item?.patientsCount <= filterTo.patientsCount)
+    }
+    if (filterFrom?.doctorsCount != "") {
+      filteredDepartment = filteredDepartment.filter(item => item?.doctorsCount >= filterFrom?.doctorsCount && item?.doctorsCount <= filterTo.doctorsCount)
+    }
+    setOpen(false)
+    setDepartment(filteredDepartment)
+  }
+
+  function clearFilter() {
+    setDepartment(allDepartment)
+  }
+
   function editDepartmentHandler() {
     const regex = /[!@#$%^&*(),.?":{}|<>0-9]/;
     if (departmentName == "") {
@@ -106,14 +127,39 @@ function AdminDepartments() {
       }
     })
   }
+  const [filterFrom, setFilterFrom] = useState({
+    doctorsCount: "",
+    patientsCount: "",
+  })
+  const [filterTo, setFilterTo] = useState({
+    doctorsCount: "",
+    patientsCount: "",
+  })
+  const [filterFromErr, setFilterFromErr] = useState({
+    doctorsCount: "",
+    patientsCount: "",
+  })
+  const [filterToErr, setFilterToErr] = useState({
+    doctorsCount: "",
+    patientsCount: "",
+  })
 
 
   return (
     <div className='admin-department'>
+      {open &&
+        <div className="filter-background">
+          <DepartmentFilter filter={filter} setOpen={setOpen} filterFrom={filterFrom} setFilterFrom={setFilterFrom} filterTo={filterTo} setFilterTo={setFilterTo} filterFromErr={filterFromErr} setFilterFromErr={setFilterFromErr} filterToErr={filterToErr} setFilterToErr={setFilterToErr} />
+        </div>
+      }
       <div className="all-departments">
         <div className="departments ">
           <div className='heading'>
-            <h2>All departments</h2>
+            <div className="header-child">
+              <h2>All departments</h2>
+              <span onClick={() => setOpen(true)}><img src={filterIcon} alt="" />filter</span>
+              <span onClick={clearFilter}>clear filter</span>
+            </div>
             <div className="form-control">
               <input type="text" placeholder="department" value={departmentName} style={{ border: departmentNameErr ? '2px solid red' : '' }} onChange={(e) => setDepartmentName(e.target.value)} name="department" id="" />
               {edit ? <button type='button' onClick={editDepartmentHandler}>edit</button> : <button type='button' onClick={addDepartmentHandler}>add</button>}
@@ -137,6 +183,27 @@ function AdminDepartments() {
                       if (i >= count && i <= count + 9) {
                         const { name, doctorsCount, patientsCount, _id } = user;
                         return <div className="table-row" key={i}>
+                          <div className="table-data"># {i + 1}</div>
+                          <div className="table-data">{name}</div>
+                          <div className="table-data">{doctorsCount}</div>
+                          <div className="table-data">{patientsCount}</div>
+                          <div className="table-data">
+                            <img src={editIcon} onClick={() => {
+                              setDepartmentName(name)
+                              setId(_id)
+                              setEdit(true)
+                            }} alt="" />
+                            <img src={deleteIcon} alt="" onClick={() => deleteHandler(_id)} />
+                          </div>
+                        </div>
+                      } else {
+                        return null
+                      }
+                    }
+                  }) : department && department.map((user, i) => {
+                    if (i >= count && i <= count + 9) {
+                      const { name, doctorsCount, patientsCount, _id } = user;
+                      return <div className="table-row" key={i}>
                         <div className="table-data"># {i + 1}</div>
                         <div className="table-data">{name}</div>
                         <div className="table-data">{doctorsCount}</div>
@@ -150,30 +217,9 @@ function AdminDepartments() {
                           <img src={deleteIcon} alt="" onClick={() => deleteHandler(_id)} />
                         </div>
                       </div>
-                      } else {
-                        return null
-                      }
+                    } else {
+                      return null
                     }
-                  }) : department && department.map((user, i) => {
-                    if (i >= count && i <= count + 9) {
-                      const { name, doctorsCount, patientsCount, _id } = user;
-                      return <div className="table-row" key={i}>
-                      <div className="table-data"># {i + 1}</div>
-                      <div className="table-data">{name}</div>
-                      <div className="table-data">{doctorsCount}</div>
-                      <div className="table-data">{patientsCount}</div>
-                      <div className="table-data">
-                        <img src={editIcon} onClick={() => {
-                          setDepartmentName(name)
-                          setId(_id)
-                          setEdit(true)
-                        }} alt="" />
-                        <img src={deleteIcon} alt="" onClick={() => deleteHandler(_id)} />
-                      </div>
-                    </div>
-                      } else {
-                        return null
-                      }
                   })}
                 </div>
                 {department.length > 11 ?

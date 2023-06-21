@@ -1,0 +1,56 @@
+.filter-modal {
+    padding: 1rem;
+    width: 30rem;
+    background-color: white;
+    box-shadow: 0 0 3px 5px white;
+    border-radius: 10px;
+
+    .heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .body {
+        padding-top: 2rem;
+
+        h3 {
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .inputs {
+                width: 50%;
+                display: flex;
+                div {
+                    display: flex;
+                    justify-content: center;
+                    width: 100%;
+                    input {
+                        padding: 0.2rem;
+                        width: 100%;
+                        font-size: larger;
+                    }
+                }
+                .from, .to {
+                    display: flex;
+                    input {
+                        width: 95%;
+                    }
+                }
+            }
+        }
+        .action {
+            button {
+                font-weight: 600;
+                float: right;
+                background-color: lightblue;
+                font-size: larger;
+                padding: 0.3rem 2rem;
+                border-radius: 20px;
+                border: 1px solid black;
+            }
+        }
+    }
+}

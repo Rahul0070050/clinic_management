@@ -1,27 +1,79 @@
 import React, { useEffect, useState } from 'react'
+import { Link, useNavigate, } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import useFetch from '../../../hooks/useFetch'
 
 import deleteIcon from '../../../assets/svg/delete-icon.svg'
+import filterIcon from '../../../assets/images/filter.png'
 import editIcon from '../../../assets/svg/edit-icon.svg'
+
 import './style.scss';
-import { Link, useNavigate, } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import Filter from '../../../components/adminComponents/filter';
 
 function AdminDoctorsList() {
     const getRequest = useFetch("GET");
     const [count, setCount] = useState(0)
     const [doctors, setDoctors] = useState(() => [])
+    const [allDoctors, setAllDoctors] = useState(() => [])
     const [doctorsCount, setDoctorsCount] = useState()
+    const [open, setOpen] = useState(false)
+
+    const [filterFrom, setFilterFrom] = useState({
+        age: "",
+        ctc: "",
+        experience: "",
+        department: "",
+    })
+    const [filterTo, setFilterTo] = useState({
+        age: "",
+        ctc: "",
+        experience: "",
+    })
+    const [filterFromErr, setFilterFromErr] = useState({
+        age: "",
+        ctc: "",
+        experience: "",
+        department: "",
+    })
+    const [filterToErr, setFilterToErr] = useState({
+        age: "",
+        ctc: "",
+        experience: "",
+    })
+
     const navigate = useNavigate()
     const { search } = useSelector((state) => state.root.admin)
 
     useEffect(() => {
         getRequest('/admin/get-all-doctors').then(res => {
+            setAllDoctors(res.allDoctors)
             setDoctors(res.allDoctors)
             setDoctorsCount(res.totalCount)
         })
     }, [])
+
+    function filter(filterFrom, filterTo) {
+        let filteredDoctors = allDoctors
+        if (filterFrom?.department != "") {
+            filteredDoctors = filteredDoctors.filter(item => item?.department == filterFrom?.department)
+        }
+        if (filterFrom?.age != "") {
+            filteredDoctors = filteredDoctors.filter(item => item?.age >= filterFrom?.age && item?.age <= filterTo.age)
+        }
+        if (filterFrom?.ctc != "") {
+            filteredDoctors = filteredDoctors.filter(item => item?.CTC >= filterFrom?.ctc && item?.CTC <= filterTo.ctc)
+        }
+        if (filterFrom?.experience != "") {
+            filteredDoctors = filteredDoctors.filter(item => item?.experience >= filterFrom?.experience && item?.experience <= filterTo.experience)
+        }
+        setOpen(false)
+
+        setDoctors(filteredDoctors)
+    }
+    function clearFilter() {
+        setDoctors(allDoctors)
+    }
 
     function blockDoctor(id) {
         getRequest(`/admin/block-doctor/${id}`).then(res => {
@@ -38,8 +90,17 @@ function AdminDoctorsList() {
 
     return (
         <div className='admin-doctors-list-page'>
+            {open &&
+                <div className="filter-background">
+                    <Filter filter={filter} setOpen={setOpen}  filterFrom={filterFrom} setFilterFrom={setFilterFrom} filterTo={filterTo} setFilterTo={setFilterTo} filterFromErr={filterFromErr} setFilterFromErr={setFilterFromErr} filterToErr={filterToErr} setFilterToErr={setFilterToErr}/>
+                </div>
+            }
             <div className="header">
-                <h1>All Doctors</h1>
+                <div className="header-child">
+                    <h1>All Doctors</h1>
+                    <span onClick={() => setOpen(true)}><img src={filterIcon} alt="" />filter</span>
+                    <span onClick={clearFilter}>clear filter</span>
+                </div>
                 <Link to="/admin/doctors/add">add Doctor</Link>
             </div>
             <div className="doctors-list">

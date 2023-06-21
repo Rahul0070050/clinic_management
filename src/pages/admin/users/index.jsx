@@ -4,9 +4,11 @@ import useFetch from '../../../hooks/useFetch';
 
 import deleteIcon from '../../../assets/svg/delete-icon.svg'
 import editIcon from '../../../assets/svg/edit-icon.svg'
+import filterIcon from '../../../assets/images/filter.png'
 
 import './style.scss'
 import { useSelector } from 'react-redux';
+import UserFilter from '../../../components/adminComponents/userFilter';
 
 const getRequest = useFetch("GET");
 
@@ -14,10 +16,30 @@ function AllUser() {
     const { search } = useSelector((state) => state.root.admin)
 
     const [users, setUsers] = useState([])
+    const [allUsers, setAllUsers] = useState([])
+    const [open, setOpen] = useState(false)
+
+    const [filterFrom, setFilterFrom] = useState({
+        gender: "",
+        dateOfBirth: "",
+    })
+    const [filterTo, setFilterTo] = useState({
+        gender: "",
+        dateOfBirth: "",
+    })
+    const [filterFromErr, setFilterFromErr] = useState({
+        gender: "",
+        dateOfBirth: "",
+    })
+    const [filterToErr, setFilterToErr] = useState({
+        gender: "",
+        dateOfBirth: "",
+    })
+
     useEffect(() => {
         getRequest('/admin/get-all-users').then(response => {
             setUsers(response.users);
-            console.log(response.users);
+            setAllUsers(response.users);
         })
     }, [])
 
@@ -36,11 +58,36 @@ function AllUser() {
         })
     }
 
+    function filter(filterFrom, filterTo) {
+        let filteredUsers = allUsers
+        if (filterFrom?.patientsCount != "") {
+            filteredUsers = filteredUsers.filter(item => item?.gender >= filterFrom?.gender && item?.gender <= filterTo.gender)
+        }
+        if (filterFrom?.doctorsCount != "") {
+            filteredUsers = filteredUsers.filter(item => item?.dateOfBirth >= filterFrom?.dateOfBirth && item?.dateOfBirth <= filterTo.dateOfBirth)
+        }
+        setOpen(false)
+        setUsers(filteredUsers)
+    }
+
+    function clearFilter() {
+        setUsers(allUsers)
+    }
+
     return (
         <div className='admin-all-user-list'>
+            {open &&
+                <div className="filter-background">
+                    <UserFilter filter={filter} setOpen={setOpen} filterFrom={filterFrom} setFilterFrom={setFilterFrom} filterTo={filterTo} setFilterTo={setFilterTo} filterFromErr={filterFromErr} setFilterFromErr={setFilterFromErr} filterToErr={filterToErr} setFilterToErr={setFilterToErr} />
+                </div>
+            }
             <div className="all-patients">
                 <div className="patients">
-                    <h2>All Users</h2>
+                    <div className="header-child">
+                        <h2>All Users</h2>
+                        <span onClick={() => setOpen(true)}><img src={filterIcon} alt="" />filter</span>
+                        <span onClick={clearFilter}>clear filter</span>
+                    </div>
                     <div className="container">
                         <div className="table">
                             <div className="table-header">

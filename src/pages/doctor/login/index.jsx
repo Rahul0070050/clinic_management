@@ -11,13 +11,13 @@ import { useDispatch } from 'react-redux';
 import { setInfo } from '../../../store/slice/doctorsSlice';
 
 function Login() {
-  const [userData, setUserData] = useState({ username: "", password: "", confirm_password: "" });
-  const [userDataErr, setUserDataErr] = useState({ username: "", password: "", confirm_password: "" });
+  const postRequest = useFetch("POST");
+  const [userData, setUserData] = useState({ username: "", password: "" });
+  const [userDataErr, setUserDataErr] = useState({ username: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const postRequest = useFetch("POST");
 
 
   function handleOnchange(e) {
@@ -31,8 +31,8 @@ function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    if (userData.username == "" || userData.password == "" || userData.confirm_password == "") {
+    
+    if (userData.username == "" || userData.password == "") {
       for (const key in userData) {
         if (userData[key] == "") {
           setUserDataErr((prev) => {
@@ -53,7 +53,7 @@ function Login() {
       return;
     }
 
-    if (userData.password != userData.confirm_password || userData.password.length < 8) {
+    if (userData.password == "" || userData.password.length < 8) {
       if (userData.password.length < 8) {
         setUserDataErr(prev => {
           return {
@@ -63,7 +63,7 @@ function Login() {
         });
       }
 
-      if (userData.password != userData.confirm_password) {
+      if (userData.password != "") {
         setUserDataErr(prev => {
           return {
             ...prev,
@@ -75,17 +75,18 @@ function Login() {
     }
 
 
-    setUserDataErr({ username: "", password: "", confirm_password: "" })
+    setUserDataErr({ username: "", password: "" })
 
 
+    console.log('log from doctor login page');
     try {
-
       postRequest('/doctor/login', userData).then(res => {
         console.log(res);
         dispatch(setInfo(res.info))
         localStorage.setItem('doctor-token', JSON.stringify(res.token))
         navigate('/doctor/home')
       }).catch(err => {
+        console.log(err);
         setUserDataErr(prev => {
           return {
             ...prev,
@@ -115,10 +116,6 @@ function Login() {
             <img src={showPassword ? openEye : closedEYe} onClick={() => setShowPassword(show => !show)} alt="" />
             <label htmlFor="password">password {userDataErr.password && <span>*{userDataErr.password}</span>}</label>
             <input type={showPassword ? "text" : "password"} name="password" onChange={handleOnchange} id='password' />
-          </div>
-          <div className="form-control">
-            <label htmlFor="confirm-password">confirm password {userDataErr.confirm_password && <span>*{userDataErr.confirm_password}</span>}</label>
-            <input type={showPassword ? "text" : "password"} id='confirm-password' onChange={handleOnchange} name="confirm_password" />
           </div>
           <div className="form-control">
             <input type="button" name="button" onClick={handleSubmit} value="Sign In" />

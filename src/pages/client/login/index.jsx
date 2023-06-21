@@ -87,7 +87,6 @@ function Login() {
         window.location = '/'
         dispatch(userLogin(res.user))
       }).catch(err => {
-        console.log(err);
         setUserDataErr(prev => {
           return {
             ...prev,

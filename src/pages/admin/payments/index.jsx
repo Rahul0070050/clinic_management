@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 
 import useFetch from '../../../hooks/useFetch';
 
@@ -6,7 +7,6 @@ import deleteIcon from '../../../assets/svg/delete-icon.svg'
 import editIcon from '../../../assets/svg/edit-icon.svg'
 
 import './style.scss'
-import { useSelector } from 'react-redux';
 
 const getRequest = useFetch("GET");
 

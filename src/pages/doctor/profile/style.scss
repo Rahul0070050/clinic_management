@@ -24,7 +24,8 @@ $color-form-highlight: #EEEEEE;
         width: 50%;
 
         .info {
-            box-shadow: 0 0 4px 4px rgba(128, 128, 128, 0.227);
+            box-shadow: 0 0 4px 4px rgba(224, 255, 255, 0.344);
+            background-color: rgba(224, 255, 255, 0.344);
             height: fit-content;
             border-radius: 10px;
             display: flex;
@@ -38,7 +39,7 @@ $color-form-highlight: #EEEEEE;
                     &::after {
                         content: ':';
                         position: absolute;
-                        left: 10rem;
+                        left: 15rem;
                     }
                 }
             }
@@ -50,7 +51,7 @@ $color-form-highlight: #EEEEEE;
                 }
 
                 color: black;
-                font-size: x-large;
+                font-size: xx-large;
                 text-transform: capitalize;
                 display: flex;
                 flex-direction: column;

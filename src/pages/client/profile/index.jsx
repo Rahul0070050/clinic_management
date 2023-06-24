@@ -56,6 +56,11 @@ function UserProfile() {
                             </div>
                             <div className="prescriptions">
                                 <div className="header">
+                                    <h2>Symptoms</h2>
+                                    <br />
+                                    <span className='symptoms'>{item?.symptoms}</span>
+                                    <br />
+                                    <br />
                                     <h2>Prescription</h2>
                                 </div>
                                 <div className="body">

@@ -16,10 +16,13 @@ export default function useFetch(method) {
         }
     }
 
+
     const token = setToken()
-    // let BASEURL = "http://44.203.69.42/api"
-    let BASEURL = "http://localhost:5000/api";
-    // let BASEURL = "https://clinic-management-kk67.onrender.com/api";
+    let BASEURL = ""
+    BASEURL = "https://skincareclinic.website/api"
+    // BASEURL = "http://44.203.69.42/api"
+    // BASEURL = "http://localhost:5000/api";
+    // BASEURL = "https://clinic-management-kk67.onrender.com/api";
     let METHOD = null;
     let URL = "";
 
